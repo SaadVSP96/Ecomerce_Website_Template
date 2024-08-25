@@ -596,6 +596,10 @@ footer .copyright {
     flex-basis: 24%;
 }
 
+.small-img-col:hover {
+    cursor: pointer;
+}
+
 #prodetails .single-pro-details {
     width: 50%;
     padding-top: 30px;
