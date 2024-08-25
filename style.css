@@ -573,7 +573,7 @@ footer .copyright {
     font-weight: 600;
 }
 
-/* Single Product */
+/* Single Product page*/
 #prodetails {
     display: flex;
     flex-direction: row;
@@ -806,5 +806,21 @@ footer .copyright {
 
     footer .copyright {
         text-align: start;
+    }
+
+    /* Single Product Page*/
+    #prodetails {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #prodetails .single-pro-image {
+        width: 100%;
+        margin-right: 0px;
+    }
+
+    #prodetails .single-pro-details {
+        width: 100%;
+        margin-top: 30px;
     }
 }
