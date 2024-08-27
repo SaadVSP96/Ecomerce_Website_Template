@@ -1,6 +1,4 @@
-*,
-*::after,
-*::before {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -145,6 +143,7 @@ body {
     background-position: top 25% right 0;
     padding: 0 80px;
     display: flex;
+    background-repeat: no-repeat;
     flex-direction: column;
     align-self: flex-start;
     justify-content: center;
