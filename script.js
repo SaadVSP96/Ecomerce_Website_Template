@@ -31,7 +31,10 @@ let productData = [
     "img/products/f8.jpg",
 ];
 
-const newProduct = document.createElement("div");
+// picking up the product container:
+const pro_container = document.querySelector("#product1 .pro-container");
+
+let newProduct = document.createElement("div");
 newProduct.classList.add("pro");
 newProduct.onclick = "window.location.href='single_product.html'";
 // define template literal:
@@ -51,3 +54,5 @@ newProduct.innerHTML = `
                         <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
                     </div>
 `;
+
+pro_container.appendChild(newProduct);
