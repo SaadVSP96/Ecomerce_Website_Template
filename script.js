@@ -20,48 +20,56 @@ if (close) {
 // Insert Objects dynamically instead of prewriting:
 let productData = [
     {
+        prodID: 19,
         prodName: "Cartoon Shirt",
         prodAdress: "img/products/f1.jpg",
         prodBrand: "Adidas",
         prodPrice: 78,
     },
     {
+        prodID: 28,
         prodName: "Garden Shirt",
         prodAdress: "img/products/f2.jpg",
         prodBrand: "Balenciaga",
         prodPrice: 578,
     },
     {
+        prodID: 37,
         prodName: "Havian Shirt",
         prodAdress: "img/products/f3.jpg",
         prodBrand: "Chanel",
         prodPrice: 111,
     },
     {
+        prodID: 46,
         prodName: "F***Boy Shirt",
         prodAdress: "img/products/f4.jpg",
         prodBrand: "Prada",
         prodPrice: 265,
     },
     {
+        prodID: 55,
         prodName: "Emo-Boy Shirt",
         prodAdress: "img/products/f5.jpg",
         prodBrand: "GAP",
         prodPrice: 99,
     },
     {
+        prodID: 64,
         prodName: "Virginity Screamer Shirt",
         prodAdress: "img/products/f6.jpg",
         prodBrand: "None",
         prodPrice: 8,
     },
     {
+        prodID: 73,
         prodName: "Pants",
         prodAdress: "img/products/f7.jpg",
         prodBrand: "The girl u fantasize about but dont approach",
         prodPrice: 875,
     },
     {
+        prodID: 82,
         prodName: "Shirt",
         prodAdress: "img/products/f8.jpg",
         prodBrand: "The girl u fantasize about but dont approach",
@@ -76,7 +84,7 @@ for (let i = 0; i < productData.length; i++) {
     // Use template literals correctly and pass the event object to the function
     let newProduct = `
     <div class="pro">
-        <img onclick="window.location.href='single_product.html?id=${i}'" src="${productData[i].prodAdress}" alt="" />
+        <img onclick="window.location.href='single_product.html?id=${productData[i].prodID}'" src="${productData[i].prodAdress}" alt="" />
         <div class="desc">
             <span>${productData[i].prodBrand}</span>
             <h5>${productData[i].prodName}</h5>
@@ -88,12 +96,14 @@ for (let i = 0; i < productData.length; i++) {
                 <i class="fa fa-star"></i>
             </div>
             <h4>$${productData[i].prodPrice}</h4>
-            <button onclick="addToCart(event, '${productData[i].prodAdress}', '${productData[i].prodName}', ${productData[i].prodPrice})">
-                <i class="fa fa-shopping-cart cart"></i>
+            <p>Product ID:- ${productData[i].prodID}</p>
+            <button onclick="addToCart(event, ${productData[i].prodID}, '${productData[i].prodName}', '${productData[i].prodAdress}', '${productData[i].prodBrand}', ${productData[i].prodPrice})">
+            <i class="fa fa-shopping-cart cart"></i>
             </button>
-        </div>
-    </div>
-    `;
+            </div>
+            </div>
+            `;
+    // function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice)
     // Append newProduct safely
     pro_container.innerHTML += newProduct;
 }
@@ -113,20 +123,27 @@ if (currentURLpathname.includes("single_product.html")) {
         // parseInt converts the string to a number
         return parseInt(currentURLhref.split("?id=")[1], 10);
     })(currentURLhref);
+    // find the requisite object in the object array:
+    const mainProdIndex = productData.findIndex(
+        (obj) => obj.prodID === currentProdId
+    );
+    console.log(mainProdIndex);
     const mainProdImg = document.getElementById("MainImg");
     const mainProdName = document.querySelector(".single-pro-details h4");
     const mainProdPrice = document.querySelector(".single-pro-details h2");
-    mainProdImg.src = productData[currentProdId].prodAdress;
-    mainProdName.innerHTML = productData[currentProdId].prodName;
-    mainProdPrice.innerHTML = `$ ` + productData[currentProdId].prodPrice;
+    mainProdImg.src = productData[mainProdIndex].prodAdress;
+    mainProdName.innerHTML = productData[mainProdIndex].prodName;
+    mainProdPrice.innerHTML = `$ ` + productData[mainProdIndex].prodPrice;
     document
         .querySelector(".single-pro-details button")
         .addEventListener("click", function (event) {
             addToCart(
                 event,
-                productData[currentProdId].prodAdress,
-                productData[currentProdId].prodName,
-                productData[currentProdId].prodPrice
+                productData[mainProdIndex].prodID,
+                productData[mainProdIndex].prodName,
+                productData[mainProdIndex].prodAdress,
+                productData[mainProdIndex].prodBrand,
+                productData[mainProdIndex].prodPrice
             );
         });
 
@@ -134,7 +151,7 @@ if (currentURLpathname.includes("single_product.html")) {
     // approach, we will do this to update the small images around the main image
     const smallImg = document.querySelectorAll(".small-img");
     let curSmallImg = 0;
-    for (let i = currentProdId; i < currentProdId + 4; i++) {
+    for (let i = mainProdIndex; i < mainProdIndex + 4; i++) {
         if (i < productData.length) {
             smallImg[curSmallImg].src = productData[i].prodAdress;
         } else if (i >= productData.length) {
@@ -167,9 +184,16 @@ if (currentURLpathname.includes("single_product.html")) {
 // Lets Add all Event Listeners
 // We need event listeners on the cart icons that activate the addToCart Function
 
-function addToCart(event, prodAdress, prodName, prodPrice) {
+function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
     event.stopPropagation(); // Prevent the parent click event from triggering
-    console.log("Adding to cart:", prodAdress, prodName, prodPrice);
-    const prod = { prodAdress, prodName, prodPrice };
-    localStorage.setItem(prodName, JSON.stringify(prod));
+    console.log(
+        "Adding to cart:",
+        prodID,
+        prodName,
+        prodAdress,
+        prodBrand,
+        prodPrice
+    );
+    const prod = { prodID, prodName, prodAdress, prodBrand, prodPrice };
+    localStorage.setItem(prodID, JSON.stringify(prod));
 }
