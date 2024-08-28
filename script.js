@@ -73,25 +73,28 @@ let productData = [
 const pro_container = document.querySelector("#product1 .pro-container");
 // define template literal and inserting objects iteratively:
 for (let i = 0; i < productData.length; i++) {
-    // <div class="pro">
+    // Use template literals correctly and pass the event object to the function
     let newProduct = `
-    <div class="pro" onclick = "window.location.href='single_product.html?id=${i}'">
-    <img src=${productData[i].prodAdress} alt="" />
-    <div class="desc">
-    <span>${productData[i].prodBrand}</span>
-    <h5>${productData[i].prodName}</h5>
-    <div class="star">
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    </div>
-    <h4>$${productData[i].prodPrice}</h4>
-    <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-    </div>
+    <div class="pro">
+        <img onclick="window.location.href='single_product.html?id=${i}'" src="${productData[i].prodAdress}" alt="" />
+        <div class="desc">
+            <span>${productData[i].prodBrand}</span>
+            <h5>${productData[i].prodName}</h5>
+            <div class="star">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <h4>$${productData[i].prodPrice}</h4>
+            <button onclick="addToCart(event, '${productData[i].prodAdress}', '${productData[i].prodName}', ${productData[i].prodPrice})">
+                <i class="fa fa-shopping-cart cart"></i>
+            </button>
+        </div>
     </div>
     `;
+    // Append newProduct safely
     pro_container.innerHTML += newProduct;
 }
 
@@ -101,8 +104,6 @@ for (let i = 0; i < productData.length; i++) {
 // First lets access the window.location.href that we stored above:
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
-console.log(currentURLhref, " ", typeof currentURLhref);
-console.log(currentURLpathname, " ", typeof currentURLpathname);
 // Ok so now we have a way to check the product id, now we need a way to populate the Main
 // and small images dynamically such that they correspond around the main image id which
 // we are getting from the query parameter.
@@ -131,10 +132,6 @@ if (currentURLpathname.includes("single_product.html")) {
         }
         curSmallImg += 1;
     }
-    console.log(mainProdImg.src);
-    smallImg.forEach((element) => {
-        console.log(element.src);
-    });
 }
 // We have some legacy functionality that we need to localize to the single-product page
 // This piece of code basically allows the main image to get updated using small images
@@ -158,10 +155,8 @@ if (currentURLpathname.includes("single_product.html")) {
 // Cart Functionality:
 // Lets Add all Event Listeners
 // We need event listeners on the cart icons that activate the addToCart Function
-const addCartBtns = document.querySelectorAll(".pro .cart");
-addCartBtns.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        console.log("adding");
-    });
-});
+
+function addToCart(event, prodAdress, prodName, prodPrice) {
+    event.stopPropagation(); // Prevent the parent click event from triggering
+    console.log("Adding to cart:", prodAdress, prodName, prodPrice);
+}

@@ -296,10 +296,6 @@ body {
     color: #088178;
     text-align: center;
     border: 1px solid #cce7d0;
-    position: absolute;
-    /* cursor: ; */
-    bottom: 20px;
-    right: 10px;
 }
 
 #banner {
