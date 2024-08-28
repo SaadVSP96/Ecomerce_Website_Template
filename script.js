@@ -46,14 +46,14 @@ let productData = [
     {
         prodName: "Emo-Boy Shirt",
         prodAdress: "img/products/f5.jpg",
-        prodBrand: "",
+        prodBrand: "GAP",
         prodPrice: 99,
     },
     {
         prodName: "Virginity Screamer Shirt",
         prodAdress: "img/products/f6.jpg",
         prodBrand: "Your Mom Probably",
-        prodPrice: 578,
+        prodPrice: 8,
     },
     {
         prodName: "Pants",
@@ -155,4 +155,13 @@ if (currentURLpathname.includes("single_product.html")) {
     };
 }
 
-// Add TO Cart Functionality
+// Cart Functionality:
+// Lets Add all Event Listeners
+// We need event listeners on the cart icons that activate the addToCart Function
+const addCartBtns = document.querySelectorAll(".pro .cart");
+addCartBtns.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        console.log("adding");
+    });
+});
