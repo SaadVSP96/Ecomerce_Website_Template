@@ -62,22 +62,49 @@ const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
 console.log(currentURLhref, " ", typeof currentURLhref);
 console.log(currentURLpathname, " ", typeof currentURLpathname);
-// Ok so now we have a way to check the product id
-// We have some legacy functionality that we need to localize to the single-product page
-
+// Ok so now we have a way to check the product id, now we need a way to populate the Main
+// and small images dynamically such that they correspond around the main image id which
+// we are getting from the query parameter.
 if (currentURLpathname.includes("single_product.html")) {
-    var MainImg = document.getElementById("MainImg");
-    var smallImg = document.getElementsByClassName("small-img");
+    const mainImg = document.getElementById("MainImg");
+    // Now We are going to dynamically update the main image using the source array
+    const currentProdId = ((currentURLhref) => {
+        // parseInt converts the string to a number
+        return parseInt(currentURLhref.split("?id=")[1], 10);
+    })(currentURLhref);
+    mainImg.src = productData[currentProdId];
+    // now we need to traverse the addresses in the address array, using a circular array
+    // approach, we will do this to update the small images around the main image
+    const smallImg = document.querySelectorAll(".small-img");
+    let curSmallImg = 0;
+    for (let i = currentProdId; i < currentProdId + 4; i++) {
+        if (i < productData.length) {
+            smallImg[curSmallImg].src = productData[i];
+        } else if (i >= productData.length) {
+            smallImg[curSmallImg].src = productData[i % productData.length];
+        }
+        curSmallImg += 1;
+    }
+    console.log(mainImg.src);
+    smallImg.forEach((element) => {
+        console.log(element.src);
+    });
+}
+// We have some legacy functionality that we need to localize to the single-product page
+// This piece of code basically allows the main image to get updated using small images
+if (currentURLpathname.includes("single_product.html")) {
+    const mainImg = document.getElementById("MainImg");
+    const smallImg = document.getElementsByClassName("small-img");
     smallImg[0].onclick = function () {
-        MainImg.src = smallImg[0].src;
+        mainImg.src = smallImg[0].src;
     };
     smallImg[1].onclick = function () {
-        MainImg.src = smallImg[1].src;
+        mainImg.src = smallImg[1].src;
     };
     smallImg[2].onclick = function () {
-        MainImg.src = smallImg[2].src;
+        mainImg.src = smallImg[2].src;
     };
     smallImg[3].onclick = function () {
-        MainImg.src = smallImg[3].src;
+        mainImg.src = smallImg[3].src;
     };
 }
