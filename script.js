@@ -52,7 +52,7 @@ let productData = [
     {
         prodName: "Virginity Screamer Shirt",
         prodAdress: "img/products/f6.jpg",
-        prodBrand: "Your Mom Probably",
+        prodBrand: "None",
         prodPrice: 8,
     },
     {
@@ -119,6 +119,17 @@ if (currentURLpathname.includes("single_product.html")) {
     mainProdImg.src = productData[currentProdId].prodAdress;
     mainProdName.innerHTML = productData[currentProdId].prodName;
     mainProdPrice.innerHTML = `$ ` + productData[currentProdId].prodPrice;
+    document
+        .querySelector(".single-pro-details button")
+        .addEventListener("click", function (event) {
+            addToCart(
+                event,
+                productData[currentProdId].prodAdress,
+                productData[currentProdId].prodName,
+                productData[currentProdId].prodPrice
+            );
+        });
+
     // now we need to traverse the addresses in the address array, using a circular array
     // approach, we will do this to update the small images around the main image
     const smallImg = document.querySelectorAll(".small-img");
@@ -159,4 +170,6 @@ if (currentURLpathname.includes("single_product.html")) {
 function addToCart(event, prodAdress, prodName, prodPrice) {
     event.stopPropagation(); // Prevent the parent click event from triggering
     console.log("Adding to cart:", prodAdress, prodName, prodPrice);
+    const prod = { prodAdress, prodName, prodPrice };
+    localStorage.setItem(prodName, JSON.stringify(prod));
 }
