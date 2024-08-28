@@ -19,15 +19,56 @@ if (close) {
 // Shop Page Functionality
 // Insert Objects dynamically instead of prewriting:
 let productData = [
-    "img/products/f1.jpg",
-    "img/products/f2.jpg",
-    "img/products/f3.jpg",
-    "img/products/f4.jpg",
-    "img/products/f5.jpg",
-    "img/products/f6.jpg",
-    "img/products/f7.jpg",
-    "img/products/f8.jpg",
+    {
+        prodName: "Cartoon Shirt",
+        prodAdress: "img/products/f1.jpg",
+        prodBrand: "Adidas",
+        prodPrice: 78,
+    },
+    {
+        prodName: "Garden Shirt",
+        prodAdress: "img/products/f2.jpg",
+        prodBrand: "Balenciaga",
+        prodPrice: 578,
+    },
+    {
+        prodName: "Havian Shirt",
+        prodAdress: "img/products/f3.jpg",
+        prodBrand: "Chanel",
+        prodPrice: 111,
+    },
+    {
+        prodName: "F***Boy Shirt",
+        prodAdress: "img/products/f4.jpg",
+        prodBrand: "Prada",
+        prodPrice: 265,
+    },
+    {
+        prodName: "Emo-Boy Shirt",
+        prodAdress: "img/products/f5.jpg",
+        prodBrand: "",
+        prodPrice: 99,
+    },
+    {
+        prodName: "Virginity Screamer Shirt",
+        prodAdress: "img/products/f6.jpg",
+        prodBrand: "Your Mom Probably",
+        prodPrice: 578,
+    },
+    {
+        prodName: "Pants",
+        prodAdress: "img/products/f7.jpg",
+        prodBrand: "The girl u fantasize about but dont approach",
+        prodPrice: 875,
+    },
+    {
+        prodName: "Shirt",
+        prodAdress: "img/products/f8.jpg",
+        prodBrand: "The girl u fantasize about but dont approach",
+        prodPrice: 987,
+    },
 ];
+
 // picking up the product container:
 const pro_container = document.querySelector("#product1 .pro-container");
 // define template literal and inserting objects iteratively:
@@ -35,10 +76,10 @@ for (let i = 0; i < productData.length; i++) {
     // <div class="pro">
     let newProduct = `
     <div class="pro" onclick = "window.location.href='single_product.html?id=${i}'">
-    <img src=${productData[i]} alt="" />
+    <img src=${productData[i].prodAdress} alt="" />
     <div class="desc">
-    <span>adidas</span>
-    <h5>Cartoon Astronaut T-Shirts</h5>
+    <span>${productData[i].prodBrand}</span>
+    <h5>${productData[i].prodName}</h5>
     <div class="star">
     <i class="fa fa-star"></i>
     <i class="fa fa-star"></i>
@@ -46,7 +87,7 @@ for (let i = 0; i < productData.length; i++) {
     <i class="fa fa-star"></i>
     <i class="fa fa-star"></i>
     </div>
-    <h4>$78</h4>
+    <h4>$${productData[i].prodPrice}</h4>
     <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
     </div>
     </div>
@@ -66,26 +107,31 @@ console.log(currentURLpathname, " ", typeof currentURLpathname);
 // and small images dynamically such that they correspond around the main image id which
 // we are getting from the query parameter.
 if (currentURLpathname.includes("single_product.html")) {
-    const mainImg = document.getElementById("MainImg");
     // Now We are going to dynamically update the main image using the source array
     const currentProdId = ((currentURLhref) => {
         // parseInt converts the string to a number
         return parseInt(currentURLhref.split("?id=")[1], 10);
     })(currentURLhref);
-    mainImg.src = productData[currentProdId];
+    const mainProdImg = document.getElementById("MainImg");
+    const mainProdName = document.querySelector(".single-pro-details h4");
+    const mainProdPrice = document.querySelector(".single-pro-details h2");
+    mainProdImg.src = productData[currentProdId].prodAdress;
+    mainProdName.innerHTML = productData[currentProdId].prodName;
+    mainProdPrice.innerHTML = `$ ` + productData[currentProdId].prodPrice;
     // now we need to traverse the addresses in the address array, using a circular array
     // approach, we will do this to update the small images around the main image
     const smallImg = document.querySelectorAll(".small-img");
     let curSmallImg = 0;
     for (let i = currentProdId; i < currentProdId + 4; i++) {
         if (i < productData.length) {
-            smallImg[curSmallImg].src = productData[i];
+            smallImg[curSmallImg].src = productData[i].prodAdress;
         } else if (i >= productData.length) {
-            smallImg[curSmallImg].src = productData[i % productData.length];
+            smallImg[curSmallImg].src =
+                productData[i % productData.length].prodAdress;
         }
         curSmallImg += 1;
     }
-    console.log(mainImg.src);
+    console.log(mainProdImg.src);
     smallImg.forEach((element) => {
         console.log(element.src);
     });
@@ -108,3 +154,5 @@ if (currentURLpathname.includes("single_product.html")) {
         mainImg.src = smallImg[3].src;
     };
 }
+
+// Add TO Cart Functionality
