@@ -84,7 +84,7 @@ for (let i = 0; i < productData.length; i++) {
     // Use template literals correctly and pass the event object to the function
     let newProduct = `
     <div class="pro">
-        <img onclick="window.location.href='single_product.html?id=${productData[i].prodID}'" src="${productData[i].prodAdress}" alt="" />
+        <img src="${productData[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
         <div class="desc">
             <span>${productData[i].prodBrand}</span>
             <h5>${productData[i].prodName}</h5>
@@ -97,7 +97,7 @@ for (let i = 0; i < productData.length; i++) {
             </div>
             <h4>$${productData[i].prodPrice}</h4>
             <p>Product ID:- ${productData[i].prodID}</p>
-            <button onclick="addToCart(event, ${productData[i].prodID}, '${productData[i].prodName}', '${productData[i].prodAdress}', '${productData[i].prodBrand}', ${productData[i].prodPrice})">
+            <button onclick="addToCart(event, ${productData[i].prodID})">
             <i class="fa fa-shopping-cart cart"></i>
             </button>
             </div>
@@ -127,7 +127,7 @@ if (currentURLpathname.includes("single_product.html")) {
     const mainProdIndex = productData.findIndex(
         (obj) => obj.prodID === currentProdId
     );
-    console.log(mainProdIndex);
+    // console.log(mainProdIndex);
     const mainProdImg = document.getElementById("MainImg");
     const mainProdName = document.querySelector(".single-pro-details h4");
     const mainProdPrice = document.querySelector(".single-pro-details h2");
@@ -137,14 +137,7 @@ if (currentURLpathname.includes("single_product.html")) {
     document
         .querySelector(".single-pro-details button")
         .addEventListener("click", function (event) {
-            addToCart(
-                event,
-                productData[mainProdIndex].prodID,
-                productData[mainProdIndex].prodName,
-                productData[mainProdIndex].prodAdress,
-                productData[mainProdIndex].prodBrand,
-                productData[mainProdIndex].prodPrice
-            );
+            addToCart(event, productData[mainProdIndex].prodID);
         });
 
     // now we need to traverse the addresses in the address array, using a circular array
@@ -183,18 +176,11 @@ if (currentURLpathname.includes("single_product.html")) {
 // Cart Functionality:
 // Lets Add all Event Listeners
 // We need event listeners on the cart icons that activate the addToCart Function
-function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
+function addToCart(event, prodID) {
     event.stopPropagation(); // Prevent the parent click event from triggering
-    console.log(
-        "Adding to cart:",
-        prodID,
-        prodName,
-        prodAdress,
-        prodBrand,
-        prodPrice
-    );
-    const prod = { prodID, prodName, prodAdress, prodBrand, prodPrice };
-    // define cart array to hold the product objects currently in the local storage
+    const prod = prodID;
+    console.log("adding product with ID -> ", prod);
+    // define cart array to hold the product IDs currently in the local storage
     // of the site
     let cart;
     // localStorage.setItem(prodID, JSON.stringify(prod));
@@ -203,8 +189,24 @@ function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
     } else {
         cart = [];
     }
+    // now we have the cart array with us, empty or otherwise.
+    // next, we have been provided with a prodID, and we should check if this ID
+    // is already within the array.
+    // cart = [3, 4, 2, 1];
+    // sorting the array using our custom insertion sort:
+    insertionSort(cart);
+    // now checking if prodID is in cart, if its not in there, we add it in the cart
+    // array. Now In case we extend functinality to increase the number of items from,
+    // the single-product page, we will have to convert this ID array to object array
+    // of {prodID, prodQty} but that is if and when.
+    // If this capability is added, we will then have to add an else to increase the
+    // item Qty count. for now, no need for an else.
+    if (binarySearch(cart, prodID) === -1) {
+        cart.push(prodID);
+    }
     console.log(cart);
-    // now to add the cart array in the local storage and
+    // okay, now we put the cart array back into the "products" row of local storage
+    localStorage.setItem("products", JSON.stringify(cart));
 }
 
 // UPDATE TO BE MADE:::
@@ -225,3 +227,39 @@ function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
 //     // put the result back in localStorage
 //     localStorage.setItem("Products", JSON.stringify(cart));
 //   }
+
+// A helping function for sorting the cart array using Insertion Sort Method:
+// and yes, I wrote it, not ChatGPT, and if ur wondering where the label break came
+// from, that came from reading the MDN documentation.
+function insertionSort(arr) {
+    let j;
+    let temp;
+    for (let i = 0; i < arr.length; i++) {
+        j = i - 1;
+        innerWhile: while (j >= 0) {
+            if (arr[j] < arr[j + 1]) {
+                break innerWhile;
+            }
+            temp = arr[j + 1];
+            arr[j + 1] = arr[j];
+            arr[j] = temp;
+            j -= 1;
+        }
+    }
+    return arr;
+}
+
+// A heloing function to find a prodID from the cart array using the Binary
+// Search Algorithm. Why? Because I can.
+function binarySearch(arr, target) {
+    let L = 0;
+    let R = arr.length - 1;
+    let M;
+    while (L <= R) {
+        M = Math.floor((L + R) / 2);
+        if (target > arr[M]) L = M + 1;
+        else if (target < arr[M]) R = M - 1;
+        else return M;
+    }
+    return -1;
+}
