@@ -168,6 +168,7 @@ function cartEntryPopulate() {
                 <td class="imgAdress">
                     <img src="${currProd.prodAdress}" alt="" />
                 </td>
+                <td class="ID">${currProd.prodID}</td>
                 <td class="name">${currProd.prodName}</td>
                 <td class="price">$${currProd.prodPrice}</td>
                 <td>
@@ -206,10 +207,31 @@ function cartEntryPopulate() {
         console.log(cartEntry);
         console.log(cartEntry.querySelector("input").value);
         console.log(typeof cartEntry.querySelector("input").value);
-        console.log(typeof cartEntry.querySelector("input").value);
         if (parseInt(cartEntry.querySelector("input").value, 10) === 1) {
-            console.log(true);
+            currentProdId = parseInt(
+                cartEntry.querySelector(".ID").innerText,
+                10
+            );
+            // Now to remove the product from local storage
+            let cart = JSON.parse(localStorage.getItem("products"));
+            cart = cart.filter((item) => {
+                return item !== currentProdId;
+            });
+            localStorage.setItem("products", JSON.stringify(cart));
+            // remove the single count entry from the cart table
             cartEntry.remove();
+        } else if (parseInt(cartEntry.querySelector("input").value, 10) > 1) {
+            // in case there are more than one of the same item, now its better
+            // to just recall add the update subtotal function which is attatched
+            // to the event listener in the input text area after updating its value
+            // here
+            cartEntry.querySelector("input").value -= 1;
+            // Trigger the 'input' event programmatically
+            const event = new Event("input", {
+                bubbles: false, // Makes the event bubble up the DOM
+                cancelable: true, // Allows the event to be canceled
+            });
+            cartEntry.querySelector("input").dispatchEvent(event);
         }
     }
 
