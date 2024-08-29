@@ -183,7 +183,6 @@ if (currentURLpathname.includes("single_product.html")) {
 // Cart Functionality:
 // Lets Add all Event Listeners
 // We need event listeners on the cart icons that activate the addToCart Function
-
 function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
     event.stopPropagation(); // Prevent the parent click event from triggering
     console.log(
@@ -195,5 +194,34 @@ function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice) {
         prodPrice
     );
     const prod = { prodID, prodName, prodAdress, prodBrand, prodPrice };
-    localStorage.setItem(prodID, JSON.stringify(prod));
+    // define cart array to hold the product objects currently in the local storage
+    // of the site
+    let cart;
+    // localStorage.setItem(prodID, JSON.stringify(prod));
+    if (localStorage.key(0) == "products") {
+        cart = JSON.parse(localStorage.getItem("products"));
+    } else {
+        cart = [];
+    }
+    console.log(cart);
+    // now to add the cart array in the local storage and
 }
+
+// UPDATE TO BE MADE:::
+// function addToCart(productID, productPrice) {
+//     // get the current cart, or an empty object if null
+//     var cart = JSON.parse(localStorage.getItem("Products")) || {};
+
+//     // update the cart by adding an entry or incrementing an existing one
+//     if (cart[productId]) {
+//       cart[productId].count++;
+//     } else {
+//       cart[productId] = {
+//         productPrice, // shorthand for `productPrice: productPrice,`
+//         count: 1
+//       };
+//     }
+
+//     // put the result back in localStorage
+//     localStorage.setItem("Products", JSON.stringify(cart));
+//   }
