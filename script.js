@@ -152,29 +152,63 @@ function cartEntryPopulate() {
         const currProdIndex = productData.findIndex(
             (obj) => obj.prodID === cart[i]
         );
-        console.log(currProdIndex);
+        currProd = productData[currProdIndex];
+        // Calculate the initial subtotal (prodPrice * quantity)
+        const quantity = 1; // default quantity is 1
+        const subtotal = currProd.prodPrice * quantity;
+
         // now that the currProdIndex is in hand, we can access its properties to populate the items in
         // the manner used in the design.
         let cartEntry = `
             <tr>
-                <td>
+                <td class="remove">
                     <button>
                         <i class="fa fa-times-circle"></i>
                     </button>
                 </td>
-                <td>
-                    <img src="${productData[currProdIndex].prodAdress}" alt="" />
+                <td class="imgAdress">
+                    <img src="${currProd.prodAdress}" alt="" />
                 </td>
-                <td>${productData[currProdIndex].prodName}</td>
-                <td>$${productData[currProdIndex].prodPrice}</td>
+                <td class="name">${currProd.prodName}</td>
+                <td class="price">$${currProd.prodPrice}</td>
                 <td>
-                    <input type="number" value="1" />
+                    <input type="number" value="${quantity}" min="1" class="quantity-input" />
                 </td>
-                <td>$118.19</td>
+                <td class="subtotal">$${subtotal}</td>
             </tr>
         `;
         // now append the HTMl for cart entry:
         cartbody.innerHTML += cartEntry;
+    }
+    // Add event listener to the input tag for recalculating the subtotals of each inserted block
+    const quantityInputAreas = document.querySelectorAll(".quantity-input");
+    // console.log(quantityInputAreas);
+    quantityInputAreas.forEach((inputArea) => {
+        inputArea.addEventListener("input", function () {
+            // console.log(this);
+            updateSubtotal(this);
+        });
+    });
+
+    // function to update the subtotals
+    function updateSubtotal(inputArea) {
+        // We can capture the parent row element using the closest method:
+        const cartEntry = inputArea.closest("tr");
+        console.log(cartEntry.children);
+        console.log(cartEntry.children[2]);
+        console.log(cartEntry.querySelector(".name"));
+        // to calculate the Entry's new subtotal, we'd need to capture the new value from
+        // the user in the input area
+        const quantity = parseInt(inputArea.value);
+        // we can similarly capture the unit product rate
+        const unitPrice = parseInt(
+            cartEntry.querySelector(".price").innerText.substring(1),
+            10
+        );
+        console.log(quantity, typeof quantity);
+        console.log(unitPrice, typeof unitPrice);
+        const newSubtotal = quantity * unitPrice;
+        cartEntry.querySelector(".subtotal").innerText = `$${newSubtotal}`;
     }
 }
 
