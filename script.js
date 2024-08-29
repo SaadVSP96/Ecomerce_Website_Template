@@ -162,7 +162,7 @@ function cartEntryPopulate() {
         let cartEntry = `
             <tr>
                 <td class="remove">
-                    <button>
+                    <button class="removeBtn">
                         <i class="fa fa-times-circle"></i>
                     </button>
                 </td>
@@ -180,6 +180,10 @@ function cartEntryPopulate() {
         // now append the HTMl for cart entry:
         cartbody.innerHTML += cartEntry;
     }
+
+    // Should Handle the cart Total and Coupon Application Parts as well for when the page loads,
+    // Updating can be done via event listeners similar to the subtotal updating.
+
     // Add event listener to the input tag for recalculating the subtotals of each inserted block
     const quantityInputAreas = document.querySelectorAll(".quantity-input");
     // console.log(quantityInputAreas);

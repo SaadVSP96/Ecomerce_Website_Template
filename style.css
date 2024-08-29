@@ -867,6 +867,10 @@ footer .copyright {
     width: 70px;
 }
 
+#cart table td:nth-child(1) button {
+    cursor: pointer;
+}
+
 #cart table td:nth-child(1) {
     width: 100px;
     text-align: center;
