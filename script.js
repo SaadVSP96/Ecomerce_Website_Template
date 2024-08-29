@@ -1,23 +1,4 @@
-// ALL JS CODE:
-
-// All Pages
-// Navigation Bar Functionality
-const bar = document.getElementById("bar");
-const close = document.getElementById("close");
-const nav = document.getElementById("navbar");
-if (bar) {
-    bar.addEventListener("click", () => {
-        nav.classList.add("active");
-    });
-}
-if (close) {
-    close.addEventListener("click", () => {
-        nav.classList.remove("active");
-    });
-}
-
-// Shop Page Functionality
-// Insert Objects dynamically instead of prewriting:
+// All Product Data:
 let productData = [
     {
         prodID: 19,
@@ -77,12 +58,58 @@ let productData = [
     },
 ];
 
+// Master Function to control function executions for specific pages:
+document.addEventListener("DOMContentLoaded", masterFunction);
+const currentURLhref = window.location.href;
+const currentURLpathname = window.location.pathname;
+console.log(typeof currentURLhref, currentURLhref);
+console.log(typeof currentURLpathname, currentURLpathname);
+
+function masterFunction() {
+    // Runs on all pages, no need for checks
+    navBar();
+
+    // Runs on Home Page and Shop Page, requires checks
+    if (
+        currentURLpathname.includes("index.html") ||
+        currentURLpathname.includes("shop.html")
+    ) {
+        productPopulate();
+    }
+
+    // Runs only on single-product page, requires checks
+    if (currentURLpathname.includes("single_product.html")) {
+        singleProductPopulate();
+    }
+}
+
+// Navigation Bar Functionality - Runs on all pages
+function navBar() {
+    const bar = document.getElementById("bar");
+    const close = document.getElementById("close");
+    const nav = document.getElementById("navbar");
+    if (bar) {
+        bar.addEventListener("click", () => {
+            nav.classList.add("active");
+        });
+    }
+    if (close) {
+        close.addEventListener("click", () => {
+            nav.classList.remove("active");
+        });
+    }
+}
+
+// Product Population Functionality - Runs on Home Page and Shop Page
+// Insert Objects dynamically instead of prewriting:
 // picking up the product container:
-const pro_container = document.querySelector("#product1 .pro-container");
-// define template literal and inserting objects iteratively:
-for (let i = 0; i < productData.length; i++) {
-    // Use template literals correctly and pass the event object to the function
-    let newProduct = `
+
+function productPopulate() {
+    const pro_container = document.querySelector("#product1 .pro-container");
+    // define template literal and inserting objects iteratively:
+    for (let i = 0; i < productData.length; i++) {
+        // Use template literals correctly and pass the event object to the function
+        let newProduct = `
     <div class="pro">
         <img src="${productData[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
         <div class="desc">
@@ -103,21 +130,17 @@ for (let i = 0; i < productData.length; i++) {
             </div>
             </div>
             `;
-    // function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice)
-    // Append newProduct safely
-    pro_container.innerHTML += newProduct;
+        // function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice)
+        // Append newProduct safely
+        pro_container.innerHTML += newProduct;
+    }
 }
-
 // Single Product Page:
-// Now the product needs to dynamically update itself based on which one we are discussing
-// Lets first find a way to localize the fuction execution to single-product page.
-// First lets access the window.location.href that we stored above:
-const currentURLhref = window.location.href;
-const currentURLpathname = window.location.pathname;
-// Ok so now we have a way to check the product id, now we need a way to populate the Main
+// The product needs to dynamically update itself based on which one we are discussing
+// Ok so now we have a way to check the product id using query param, now we need a way to populate the Main
 // and small images dynamically such that they correspond around the main image id which
 // we are getting from the query parameter.
-if (currentURLpathname.includes("single_product.html")) {
+function singleProductPopulate() {
     // Now We are going to dynamically update the main image using the source array
     const currentProdId = ((currentURLhref) => {
         // parseInt converts the string to a number
@@ -153,12 +176,10 @@ if (currentURLpathname.includes("single_product.html")) {
         }
         curSmallImg += 1;
     }
-}
-// We have some legacy functionality that we need to localize to the single-product page
-// This piece of code basically allows the main image to get updated using small images
-if (currentURLpathname.includes("single_product.html")) {
+    // We have some legacy functionality that we need to localize to the single-product page
+    // This piece of code basically allows the main image to get updated using small images
+
     const mainImg = document.getElementById("MainImg");
-    const smallImg = document.getElementsByClassName("small-img");
     smallImg[0].onclick = function () {
         mainImg.src = smallImg[0].src;
     };
@@ -192,7 +213,6 @@ function addToCart(event, prodID) {
     // now we have the cart array with us, empty or otherwise.
     // next, we have been provided with a prodID, and we should check if this ID
     // is already within the array.
-    // cart = [3, 4, 2, 1];
     // sorting the array using our custom insertion sort:
     insertionSort(cart);
     // now checking if prodID is in cart, if its not in there, we add it in the cart
@@ -208,25 +228,6 @@ function addToCart(event, prodID) {
     // okay, now we put the cart array back into the "products" row of local storage
     localStorage.setItem("products", JSON.stringify(cart));
 }
-
-// UPDATE TO BE MADE:::
-// function addToCart(productID, productPrice) {
-//     // get the current cart, or an empty object if null
-//     var cart = JSON.parse(localStorage.getItem("Products")) || {};
-
-//     // update the cart by adding an entry or incrementing an existing one
-//     if (cart[productId]) {
-//       cart[productId].count++;
-//     } else {
-//       cart[productId] = {
-//         productPrice, // shorthand for `productPrice: productPrice,`
-//         count: 1
-//       };
-//     }
-
-//     // put the result back in localStorage
-//     localStorage.setItem("Products", JSON.stringify(cart));
-//   }
 
 // A helping function for sorting the cart array using Insertion Sort Method:
 // and yes, I wrote it, not ChatGPT, and if ur wondering where the label break came
@@ -249,7 +250,7 @@ function insertionSort(arr) {
     return arr;
 }
 
-// A heloing function to find a prodID from the cart array using the Binary
+// A helping function to find a prodID from the cart array using the Binary
 // Search Algorithm. Why? Because I can.
 function binarySearch(arr, target) {
     let L = 0;
