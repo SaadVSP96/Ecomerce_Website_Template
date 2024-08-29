@@ -156,13 +156,12 @@ function cartEntryPopulate() {
         // Calculate the initial subtotal (prodPrice * quantity)
         const quantity = 1; // default quantity is 1
         const subtotal = currProd.prodPrice * quantity;
-
         // now that the currProdIndex is in hand, we can access its properties to populate the items in
         // the manner used in the design.
         let cartEntry = `
             <tr>
                 <td class="remove">
-                    <button class="removeBtn">
+                    <button class="remove-Btn">
                         <i class="fa fa-times-circle"></i>
                     </button>
                 </td>
@@ -184,23 +183,40 @@ function cartEntryPopulate() {
     // Should Handle the cart Total and Coupon Application Parts as well for when the page loads,
     // Updating can be done via event listeners similar to the subtotal updating.
 
-    // Add event listener to the input tag for recalculating the subtotals of each inserted block
+    // Add event listener to the input tag for calling updateSubtotal(this) where this is the input tag itself.
     const quantityInputAreas = document.querySelectorAll(".quantity-input");
-    // console.log(quantityInputAreas);
     quantityInputAreas.forEach((inputArea) => {
         inputArea.addEventListener("input", function () {
-            // console.log(this);
             updateSubtotal(this);
         });
     });
+
+    // Add event listeners to the remove buttons for ac
+    const removeBtns = document.querySelectorAll(".remove-Btn");
+    removeBtns.forEach((removeBtn) => {
+        removeBtn.addEventListener("click", function () {
+            removeFromCart(this);
+        });
+    });
+
+    // function to remove from cart
+    function removeFromCart(removeBtn) {
+        // We can capture the parent row element using the closest method:
+        const cartEntry = removeBtn.closest("tr");
+        console.log(cartEntry);
+        console.log(cartEntry.querySelector("input").value);
+        console.log(typeof cartEntry.querySelector("input").value);
+        console.log(typeof cartEntry.querySelector("input").value);
+        if (parseInt(cartEntry.querySelector("input").value, 10) === 1) {
+            console.log(true);
+            cartEntry.remove();
+        }
+    }
 
     // function to update the subtotals
     function updateSubtotal(inputArea) {
         // We can capture the parent row element using the closest method:
         const cartEntry = inputArea.closest("tr");
-        console.log(cartEntry.children);
-        console.log(cartEntry.children[2]);
-        console.log(cartEntry.querySelector(".name"));
         // to calculate the Entry's new subtotal, we'd need to capture the new value from
         // the user in the input area
         const quantity = parseInt(inputArea.value);
@@ -209,8 +225,6 @@ function cartEntryPopulate() {
             cartEntry.querySelector(".price").innerText.substring(1),
             10
         );
-        console.log(quantity, typeof quantity);
-        console.log(unitPrice, typeof unitPrice);
         const newSubtotal = quantity * unitPrice;
         cartEntry.querySelector(".subtotal").innerText = `$${newSubtotal}`;
     }
