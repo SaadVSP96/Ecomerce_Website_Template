@@ -200,6 +200,16 @@ function cartEntryPopulate() {
         });
     });
 
+    // Add event listener to the Apply Button after the Coupon input
+    const applyCouponBtn = document.querySelector("#cart-add #coupon button");
+    applyCouponBtn.addEventListener("click", () => {
+        console.log("button acquired");
+        const couponCodeInput = document.querySelector(
+            "#cart-add #coupon input"
+        );
+        console.log(couponCodeInput.value);
+    });
+
     // function to remove from cart
     function removeFromCart(removeBtn) {
         // We can capture the parent row element using the closest method:
@@ -264,6 +274,7 @@ function cartEntryPopulate() {
             }
         });
         console.log(allCartEntrySubTotals);
+        // Now We need to Acquire input from the Coupon
     }
 }
 
