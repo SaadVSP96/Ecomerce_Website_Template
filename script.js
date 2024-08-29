@@ -204,9 +204,6 @@ function cartEntryPopulate() {
     function removeFromCart(removeBtn) {
         // We can capture the parent row element using the closest method:
         const cartEntry = removeBtn.closest("tr");
-        console.log(cartEntry);
-        console.log(cartEntry.querySelector("input").value);
-        console.log(typeof cartEntry.querySelector("input").value);
         if (parseInt(cartEntry.querySelector("input").value, 10) === 1) {
             currentProdId = parseInt(
                 cartEntry.querySelector(".ID").innerText,
@@ -249,6 +246,24 @@ function cartEntryPopulate() {
         );
         const newSubtotal = quantity * unitPrice;
         cartEntry.querySelector(".subtotal").innerText = `$${newSubtotal}`;
+
+        // Might as Well Update the Grand Total from here and suply it with the parent to
+        // the table row since we are looking to then collect all of the item's subtotals
+        updateGrandtotal(cartEntry.parentElement);
+    }
+
+    function updateGrandtotal(tableBody) {
+        const allCartEntrySubTotals = [];
+        tableBody.querySelectorAll("tr").forEach((tr) => {
+            const subtotalElement = tr.querySelector(".subtotal");
+            if (subtotalElement) {
+                const subtotalValue = parseInt(
+                    subtotalElement.textContent.replace("$", "")
+                );
+                allCartEntrySubTotals.push(subtotalValue);
+            }
+        });
+        console.log(allCartEntrySubTotals);
     }
 }
 
