@@ -81,6 +81,11 @@ function masterFunction() {
     if (currentURLpathname.includes("single_product.html")) {
         singleProductPopulate();
     }
+
+    // Runs only on cart page, requires checks
+    if (currentURLpathname.includes("cart.html")) {
+        cartEntryPopulate();
+    }
 }
 
 // Navigation Bar Functionality - Runs on all pages
@@ -103,7 +108,6 @@ function navBar() {
 // Product Population Functionality - Runs on Home Page and Shop Page
 // Insert Objects dynamically instead of prewriting:
 // picking up the product container:
-
 function productPopulate() {
     const pro_container = document.querySelector("#product1 .pro-container");
     // define template literal and inserting objects iteratively:
@@ -130,11 +134,50 @@ function productPopulate() {
             </div>
             </div>
             `;
-        // function addToCart(event, prodID, prodName, prodAdress, prodBrand, prodPrice)
         // Append newProduct safely
         pro_container.innerHTML += newProduct;
     }
 }
+
+// Cart Population Functionality - Runs on the Cart Page
+function cartEntryPopulate() {
+    // First we need the array in the cart, so get those prodIDs
+    let cart = JSON.parse(localStorage.getItem("products"));
+    console.log(cart);
+    // We must also have access to the container for each table row:
+    const cartbody = document.querySelector("#cart tbody");
+    for (let i = 0; i < cart.length; i++) {
+        // Now that prodIDs are in the cart array, we need to run a for loop over this array, and for each
+        // prodID, we need to search it in the product data object array.
+        const currProdIndex = productData.findIndex(
+            (obj) => obj.prodID === cart[i]
+        );
+        console.log(currProdIndex);
+        // now that the currProdIndex is in hand, we can access its properties to populate the items in
+        // the manner used in the design.
+        let cartEntry = `
+            <tr>
+                <td>
+                    <button>
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </td>
+                <td>
+                    <img src="${productData[currProdIndex].prodAdress}" alt="" />
+                </td>
+                <td>${productData[currProdIndex].prodName}</td>
+                <td>$${productData[currProdIndex].prodPrice}</td>
+                <td>
+                    <input type="number" value="1" />
+                </td>
+                <td>$118.19</td>
+            </tr>
+        `;
+        // now append the HTMl for cart entry:
+        cartbody.innerHTML += cartEntry;
+    }
+}
+
 // Single Product Page:
 // The product needs to dynamically update itself based on which one we are discussing
 // Ok so now we have a way to check the product id using query param, now we need a way to populate the Main
@@ -229,6 +272,7 @@ function addToCart(event, prodID) {
     localStorage.setItem("products", JSON.stringify(cart));
 }
 
+// Helping Functions:
 // A helping function for sorting the cart array using Insertion Sort Method:
 // and yes, I wrote it, not ChatGPT, and if ur wondering where the label break came
 // from, that came from reading the MDN documentation.
