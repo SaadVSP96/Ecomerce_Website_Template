@@ -37,8 +37,12 @@ p {
     margin: 15px 0 20px 0;
 }
 
-/* The authors preffered method of introducing default padding,
- kinda like mosh with his comtainer and block rules */
+/* ensures the increment/decrement arrows always display */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
 .section-p1 {
     padding: 40px 80px;
 }
@@ -892,8 +896,12 @@ footer .copyright {
 }
 
 #cart table td:nth-child(5),
-#cart table td:nth-child(6),
 #cart table td:nth-child(7) {
+    width: 150px;
+    text-align: center;
+}
+
+#cart table td:nth-child(6) {
     width: 150px;
     text-align: center;
 }

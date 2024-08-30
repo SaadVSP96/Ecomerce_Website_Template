@@ -172,7 +172,7 @@ function cartEntryPopulate() {
                 <td class="name">${currProd.prodName}</td>
                 <td class="price">$${currProd.prodPrice}</td>
                 <td>
-                    <input type="number" value="${quantity}" min="1" class="quantity-input" />
+                    <input type="number" value="${quantity}" min="1" class="quantity-input" onkeydown="return false" />
                 </td>
                 <td class="subtotal">$${subtotal}</td>
             </tr>
