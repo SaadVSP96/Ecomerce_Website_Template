@@ -87,16 +87,21 @@ body {
 
 /* Header Start */
 #header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 80px;
+    width: 100%; /* Make sure the header spans full width */
+    padding: 20px 0; /* Adjust padding to avoid internal space issues */
     background: #e3e6f3;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
     z-index: 999;
     position: sticky;
     top: 0;
     left: 0;
+}
+
+#header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px; /* Padding within the container */
 }
 
 #navbar {
