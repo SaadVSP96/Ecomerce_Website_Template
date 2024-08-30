@@ -62,8 +62,6 @@ let productData = [
 document.addEventListener("DOMContentLoaded", masterFunction);
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
-console.log(typeof currentURLhref, currentURLhref);
-console.log(typeof currentURLpathname, currentURLpathname);
 
 function masterFunction() {
     // Runs on all pages, no need for checks
@@ -143,7 +141,6 @@ function productPopulate() {
 function cartEntryPopulate() {
     // First we need the array in the cart, so get those prodIDs
     let cart = JSON.parse(localStorage.getItem("products"));
-    console.log(cart);
     // We must also have access to the container for each table row:
     const cartbody = document.querySelector("#cart tbody");
     for (let i = 0; i < cart.length; i++) {
@@ -278,12 +275,10 @@ function cartEntryPopulate() {
                 allCartEntrySubTotals.push(subtotalValue);
             }
         });
-        console.log(allCartEntrySubTotals);
         let Total = 0;
         allCartEntrySubTotals.forEach((entry) => {
             Total += entry;
         });
-        console.log(Total);
         // We must now catch the cart subtotal and total fields and swap out
         // their values
         document.querySelector(
@@ -300,10 +295,8 @@ function cartEntryPopulate() {
         // a larger scoped variable -> couponValueUser. We check that against the
         // code in couponValueActual and apply a 30% discount on the grand total.
         let grandTotal = Total + shippingFee;
-        console.log(grandTotal);
         if (couponValueUser === couponValueActual) {
             grandTotal -= Math.floor(grandTotal * 0.3);
-            console.log(grandTotal);
             document.querySelector(
                 "#cart-add #subtotal .grandTotal"
             ).innerText = `$ ${grandTotal}`;
@@ -346,7 +339,6 @@ function singleProductPopulate() {
     const mainProdIndex = productData.findIndex(
         (obj) => obj.prodID === currentProdId
     );
-    // console.log(mainProdIndex);
     const mainProdImg = document.getElementById("MainImg");
     const mainProdName = document.querySelector(".single-pro-details h4");
     const mainProdPrice = document.querySelector(".single-pro-details h2");
@@ -395,7 +387,6 @@ function singleProductPopulate() {
 function addToCart(event, prodID) {
     event.stopPropagation(); // Prevent the parent click event from triggering
     const prod = prodID;
-    console.log("adding product with ID -> ", prod);
     // define cart array to hold the product IDs currently in the local storage
     // of the site
     let cart;
@@ -419,7 +410,6 @@ function addToCart(event, prodID) {
     if (binarySearch(cart, prodID) === -1) {
         cart.push(prodID);
     }
-    console.log(cart);
     // okay, now we put the cart array back into the "products" row of local storage
     localStorage.setItem("products", JSON.stringify(cart));
 }

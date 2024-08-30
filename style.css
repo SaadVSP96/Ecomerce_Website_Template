@@ -51,6 +51,11 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 40px 0;
 }
 
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 button.normal {
     font-size: 14px;
     font-weight: 600;
@@ -147,6 +152,7 @@ body {
     background-position: top 25% right 0;
     padding: 0 80px;
     display: flex;
+    background-size: cover;
     background-repeat: no-repeat;
     flex-direction: column;
     align-self: flex-start;
@@ -808,7 +814,7 @@ footer .copyright {
 #form-details {
     display: flex;
     justify-content: space-around;
-    margin: 30px;
+
     padding: 80px;
     border: 1px solid #e1e1e1;
 }
