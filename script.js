@@ -204,12 +204,13 @@ function cartEntryPopulate() {
     // We are going to stor the coupon value in the page function's scope
     let couponValueUser = ""; // default value is no value in it.
     const couponValueActual = "AISLE9";
-    const shippingFee = 10;
+    const shippingFee = 0;
     const applyCouponBtn = document.querySelector("#cart-add #coupon button");
     applyCouponBtn.addEventListener("click", () => {
         const couponInput = document.querySelector("#cart-add #coupon input");
         couponValueUser = couponInput.value.trim();
-        console.log(couponValueUser);
+        // since coupon has been applied, gotta update the  grand total
+        updateGrandtotal(document.querySelector("#cart table tbody"));
     });
 
     // function to remove from cart
@@ -288,8 +289,9 @@ function cartEntryPopulate() {
         ).innerText = `$ ${Total}`;
         // catch the shipping block and write free there if 0 else the value:
         if (shippingFee > 0) {
-            document.querySelector("#cart-add #subtotal .shipping").innerText =
-                shippingFee;
+            document.querySelector(
+                "#cart-add #subtotal .shipping"
+            ).innerText = `$ ${shippingFee}`;
         }
         // Okay, so we got the shipping fee and the subtotals added
         // Now We need to Acquire input from the Coupon, which we have stored in
@@ -300,6 +302,13 @@ function cartEntryPopulate() {
         if (couponValueUser === couponValueActual) {
             grandTotal -= Math.floor(grandTotal * 0.3);
             console.log(grandTotal);
+            document.querySelector(
+                "#cart-add #subtotal .grandTotal"
+            ).innerText = `$ ${grandTotal}`;
+        } else {
+            document.querySelector(
+                "#cart-add #subtotal .grandTotal"
+            ).innerText = `$ ${grandTotal}`;
         }
     }
 }
