@@ -187,8 +187,10 @@ function cartEntryPopulate() {
     // Add event listener to the input tag for calling updateSubtotal(this) where this is the input tag itself.
     const quantityInputAreas = document.querySelectorAll(".quantity-input");
     quantityInputAreas.forEach((inputArea) => {
-        inputArea.addEventListener("input", function () {
-            updateSubtotal(this);
+        ["input", "keydown"].forEach((evnt) => {
+            inputArea.addEventListener(evnt, function () {
+                updateSubtotal(this);
+            });
         });
     });
 
@@ -311,6 +313,22 @@ function cartEntryPopulate() {
             ).innerText = `$ ${grandTotal}`;
         }
     }
+
+    // Initialize state
+    let isPageVisible = true;
+
+    // Listen for visibility change events
+    document.addEventListener("visibilitychange", () => {
+        isPageVisible = document.visibilityState === "visible";
+    });
+
+    // Handle the beforeunload event
+    window.addEventListener("beforeunload", (event) => {
+        if (isPageVisible) {
+            // Clear localStorage only if the page is visible
+            localStorage.clear();
+        }
+    });
 }
 
 // Single Product Page:
