@@ -201,13 +201,15 @@ function cartEntryPopulate() {
     });
 
     // Add event listener to the Apply Button after the Coupon input
+    // We are going to stor the coupon value in the page function's scope
+    let couponValueUser = ""; // default value is no value in it.
+    const couponValueActual = "AISLE9";
+    const shippingFee = 10;
     const applyCouponBtn = document.querySelector("#cart-add #coupon button");
     applyCouponBtn.addEventListener("click", () => {
-        console.log("button acquired");
-        const couponCodeInput = document.querySelector(
-            "#cart-add #coupon input"
-        );
-        console.log(couponCodeInput.value);
+        const couponInput = document.querySelector("#cart-add #coupon input");
+        couponValueUser = couponInput.value.trim();
+        console.log(couponValueUser);
     });
 
     // function to remove from cart
@@ -274,7 +276,31 @@ function cartEntryPopulate() {
             }
         });
         console.log(allCartEntrySubTotals);
-        // Now We need to Acquire input from the Coupon
+        let Total = 0;
+        allCartEntrySubTotals.forEach((entry) => {
+            Total += entry;
+        });
+        console.log(Total);
+        // We must now catch the cart subtotal and total fields and swap out
+        // their values
+        document.querySelector(
+            "#cart-add #subtotal .sumSubTotals"
+        ).innerText = `$ ${Total}`;
+        // catch the shipping block and write free there if 0 else the value:
+        if (shippingFee > 0) {
+            document.querySelector("#cart-add #subtotal .shipping").innerText =
+                shippingFee;
+        }
+        // Okay, so we got the shipping fee and the subtotals added
+        // Now We need to Acquire input from the Coupon, which we have stored in
+        // a larger scoped variable -> couponValueUser. We check that against the
+        // code in couponValueActual and apply a 30% discount on the grand total.
+        let grandTotal = Total + shippingFee;
+        console.log(grandTotal);
+        if (couponValueUser === couponValueActual) {
+            grandTotal -= Math.floor(grandTotal * 0.3);
+            console.log(grandTotal);
+        }
     }
 }
 
@@ -321,7 +347,6 @@ function singleProductPopulate() {
     }
     // We have some legacy functionality that we need to localize to the single-product page
     // This piece of code basically allows the main image to get updated using small images
-
     const mainImg = document.getElementById("MainImg");
     smallImg[0].onclick = function () {
         mainImg.src = smallImg[0].src;
