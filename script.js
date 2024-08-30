@@ -70,18 +70,26 @@ function masterFunction() {
     // Runs on Home Page and Shop Page, requires checks
     if (
         currentURLpathname.includes("index.html") ||
-        currentURLpathname.includes("shop.html")
+        currentURLpathname.includes("shop.html") ||
+        currentURLpathname == "/" ||
+        currentURLpathname == "/shop"
     ) {
         productPopulate();
     }
 
     // Runs only on single-product page, requires checks
-    if (currentURLpathname.includes("single_product.html")) {
+    if (
+        currentURLpathname.includes("single_product.html") ||
+        currentURLpathname == "/single_product"
+    ) {
         singleProductPopulate();
     }
 
     // Runs only on cart page, requires checks
-    if (currentURLpathname.includes("cart.html")) {
+    if (
+        currentURLpathname.includes("cart.html") ||
+        currentURLpathname == "/cart"
+    ) {
         cartEntryPopulate();
     }
 }
