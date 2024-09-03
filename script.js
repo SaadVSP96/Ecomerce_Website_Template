@@ -211,16 +211,30 @@ let productData = [
 ];
 
 // Master Function to control function executions for specific pages:
-document.addEventListener("DOMContentLoaded", masterFunction);
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
+// To capture the checkboxes for filtering the products on the shop page
 const chkbxs = document.querySelectorAll(".chkbx");
 chkbxs.forEach((chkbx) => {
     chkbx.addEventListener("click", filterationPlant);
 });
+// define the current page globally:
+let curretPage = 1;
+// To capture the itemsPerPage input form:
+const itemCountSelector = document.querySelector("#itemPerPageSelect");
+itemCountSelector.addEventListener("change", () => changePage(curretPage));
+// To capture the buttons for pagination
+const prevPageBtn = document.querySelector("#btn-prev");
+console.log(prevPageBtn);
+prevPageBtn.addEventListener("click", prevPage);
+const nextPageBtn = document.querySelector("#btn-next");
+nextPageBtn.addEventListener("click", nextPage);
+
 // the following array is a deepcopy of the productData array and allows
 // us to through it around mutating it like its the town bike.
 let displayProdArray = structuredClone(productData);
+// For Calling the Master function Each time a Page is loaded
+document.addEventListener("DOMContentLoaded", masterFunction);
 
 function masterFunction() {
     // Runs on all pages, no need for checks
@@ -271,7 +285,7 @@ function navBar() {
 }
 
 // Filteration Function
-// This function is responsible for reducing the objects based on the selected
+// This function is responsible for reducing the displayObjects based on the selected
 // filters.
 function filterationPlant() {
     // right now that we have access to the town bike, we need access to the
@@ -285,7 +299,6 @@ function filterationPlant() {
             activeCategories.push(chkbx.value);
         }
     });
-    console.log(activeCategories);
     let from = 0;
     let to = 0;
     while (from < productData.length) {
@@ -299,8 +312,61 @@ function filterationPlant() {
         from++;
     }
     displayProdArray.length = to;
-    console.log(displayProdArray);
     productPopulate(displayProdArray);
+}
+
+// Pagination Functionality:
+// this function will take the global display prod array, and chop it
+// up further before it gets to the product populate function. The
+// goal is to reduce the items to the number of items which are to be displayed
+// as specified by the user:
+function changePage(page) {
+    // this function also is called when the user clicks and changes the
+    // items per page input:
+    console.log(page);
+    console.log(displayProdArray);
+    console.log(displayProdArray.length);
+    const itemsPerPage = parseInt(itemCountSelector.value);
+    console.log(itemsPerPage);
+    const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
+    console.log(noOfPages);
+    // Validate the current page:
+    if (page < 1) page = 1;
+    if (page > noOfPages) page = noOfPages;
+    console.log(page);
+
+    // define a new array into which the object array should be spliced:
+    let paginatedProdArray = [];
+    for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
+        paginatedProdArray.push(displayProdArray[i]);
+    }
+    console.log(paginatedProdArray);
+
+    if (page == 1) {
+        prevPageBtn.style.display = "none";
+    } else {
+        prevPageBtn.style.display = "inline-block";
+        console.log("executed");
+    }
+
+    if (page == noOfPages) {
+        nextPageBtn.style.display = "none";
+    } else {
+        nextPageBtn.style.display = "inline-block";
+        console.log("executed");
+    }
+}
+
+function prevPage() {
+    if (curretPage > 1) {
+        curretPage--;
+        changePage(curretPage);
+    }
+}
+
+function nextPage() {
+    curretPage++;
+    changePage(curretPage);
 }
 
 // Product Population Functionality - Runs on Home Page and Shop Page

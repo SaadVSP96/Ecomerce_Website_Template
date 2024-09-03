@@ -52,38 +52,55 @@
         </section>
 
         <section id="product1" class="section-p1 container">
-            <div class="pro-catg-container">
-                <h4>Categories:</h4>
-                <div class="pro-catg">
-                    <input type="checkbox" id="men" class="chkbx" value="men" />
-                    <label for="men"> Men</label>
+            <div class="pro-population-controls">
+                <div class="pro-page-count">
+                    <form>
+                        <label for="itemPerPage"><h4>Items Per Page</h4></label>
+                        <select id="itemPerPageSelect" name="itemPerPage">
+                            <option value="4">4</option>
+                            <option value="8" selected>8</option>
+                            <option value="12">12</option>
+                        </select>
+                    </form>
                 </div>
-                <div class="pro-catg">
-                    <input
-                        type="checkbox"
-                        id="women"
-                        class="chkbx"
-                        value="women"
-                    />
-                    <label for="women"> Women</label>
-                </div>
-                <div class="pro-catg">
-                    <input
-                        type="checkbox"
-                        id="shirts"
-                        class="chkbx"
-                        value="shirts"
-                    />
-                    <label for="shirts"> Shirts</label>
-                </div>
-                <div class="pro-catg">
-                    <input
-                        type="checkbox"
-                        id="pants"
-                        class="chkbx"
-                        value="pants"
-                    />
-                    <label for="shirts"> Pants</label>
+                <div class="pro-catg-container">
+                    <h4>Categories:</h4>
+                    <div class="pro-catg">
+                        <input
+                            type="checkbox"
+                            id="men"
+                            class="chkbx"
+                            value="men"
+                        />
+                        <label for="men"> Men</label>
+                    </div>
+                    <div class="pro-catg">
+                        <input
+                            type="checkbox"
+                            id="women"
+                            class="chkbx"
+                            value="women"
+                        />
+                        <label for="women"> Women</label>
+                    </div>
+                    <div class="pro-catg">
+                        <input
+                            type="checkbox"
+                            id="shirts"
+                            class="chkbx"
+                            value="shirts"
+                        />
+                        <label for="shirts"> Shirts</label>
+                    </div>
+                    <div class="pro-catg">
+                        <input
+                            type="checkbox"
+                            id="pants"
+                            class="chkbx"
+                            value="pants"
+                        />
+                        <label for="shirts"> Pants</label>
+                    </div>
                 </div>
             </div>
             <div class="pro-container">
@@ -92,9 +109,13 @@
         </section>
 
         <section id="pagination" class="section-p1">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#"><i class="fa fa-long-arrow-alt-right"></i></a>
+            <button id="btn-prev">
+                <i class="fa fa-long-arrow-alt-left"></i>
+            </button>
+            <button id="current-page"><h4></h4></button>
+            <button id="btn-next">
+                <i class="fa fa-long-arrow-alt-right"></i>
+            </button>
         </section>
 
         <section id="newsletter" class="section-p1 section-m1">
