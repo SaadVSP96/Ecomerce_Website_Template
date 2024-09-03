@@ -214,6 +214,13 @@ let productData = [
 document.addEventListener("DOMContentLoaded", masterFunction);
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
+const chkbxs = document.querySelectorAll(".chkbx");
+chkbxs.forEach((chkbx) => {
+    chkbx.addEventListener("click", filterationPlant);
+});
+// the following array is a deepcopy of the productData array and allows
+// us to through it around mutating it like its the town bike.
+let displayProdArray = structuredClone(productData);
 
 function masterFunction() {
     // Runs on all pages, no need for checks
@@ -226,7 +233,7 @@ function masterFunction() {
         currentURLpathname == "/" ||
         currentURLpathname == "/shop"
     ) {
-        productPopulate();
+        productPopulate(displayProdArray);
     }
 
     // Runs only on single-product page, requires checks
@@ -263,20 +270,53 @@ function navBar() {
     }
 }
 
+// Filteration Function
+// This function is responsible for reducing the objects based on the selected
+// filters.
+function filterationPlant() {
+    // right now that we have access to the town bike, we need access to the
+    // the status of the category button values. We can store those values in
+    // an array:
+    // we need the same queryselector as before since we no longer have access
+    // to the local array of the buttons, but their states are probably global.
+    const activeCategories = [];
+    chkbxs.forEach((chkbx) => {
+        if (chkbx.checked == true) {
+            activeCategories.push(chkbx.value);
+        }
+    });
+    console.log(activeCategories);
+    let from = 0;
+    let to = 0;
+    while (from < productData.length) {
+        const isSubset = activeCategories.every((category) =>
+            productData[from].categories.includes(category)
+        );
+        if (isSubset) {
+            displayProdArray[to] = productData[from];
+            to++;
+        }
+        from++;
+    }
+    displayProdArray.length = to;
+    console.log(displayProdArray);
+    productPopulate(displayProdArray);
+}
+
 // Product Population Functionality - Runs on Home Page and Shop Page
 // Insert Objects dynamically instead of prewriting:
-// picking up the product container:
-function productPopulate() {
+function productPopulate(prodArray) {
     const pro_container = document.querySelector("#product1 .pro-container");
+    pro_container.innerHTML = "";
     // define template literal and inserting objects iteratively:
-    for (let i = 0; i < productData.length; i++) {
+    for (let i = 0; i < prodArray.length; i++) {
         // Use template literals correctly and pass the event object to the function
         let newProduct = `
     <div class="pro">
-        <img src="${productData[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
+        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
         <div class="desc">
-            <span>${productData[i].prodBrand}</span>
-            <h5>${productData[i].prodName}</h5>
+            <span>${prodArray[i].prodBrand}</span>
+            <h5>${prodArray[i].prodName}</h5>
             <div class="star">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -284,9 +324,9 @@ function productPopulate() {
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <h4>$${productData[i].prodPrice}</h4>
-            <p>Product ID:- ${productData[i].prodID}</p>
-            <button onclick="addToCart(event, ${productData[i].prodID})">
+            <h4>$${prodArray[i].prodPrice}</h4>
+            <p>Product ID:- ${prodArray[i].prodID}</p>
+            <button onclick="addToCart(event, ${prodArray[i].prodID})">
             <i class="fa fa-shopping-cart cart"></i>
             </button>
             </div>

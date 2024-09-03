@@ -243,6 +243,15 @@ body {
     text-align: center;
 }
 
+#product1 .pro-catg-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 1rem 2rem;
+    column-gap: 1.5rem;
+    align-items: center;
+}
+
 #product1 .pro-container {
     display: flex;
     flex-direction: row;
