@@ -217,6 +217,7 @@ const currentURLpathname = window.location.pathname;
 const chkbxs = document.querySelectorAll(".chkbx");
 chkbxs.forEach((chkbx) => {
     chkbx.addEventListener("click", filterationPlant);
+    chkbx.addEventListener("click", () => changePage(curretPage));
 });
 // define the current page globally:
 let curretPage = 1;
@@ -229,6 +230,8 @@ console.log(prevPageBtn);
 prevPageBtn.addEventListener("click", prevPage);
 const nextPageBtn = document.querySelector("#btn-next");
 nextPageBtn.addEventListener("click", nextPage);
+const currPageIndicator = document.querySelector("#current-page");
+currPageIndicator.textContent = curretPage;
 
 // the following array is a deepcopy of the productData array and allows
 // us to through it around mutating it like its the town bike.
@@ -247,7 +250,7 @@ function masterFunction() {
         currentURLpathname == "/" ||
         currentURLpathname == "/shop"
     ) {
-        productPopulate(displayProdArray);
+        changePage(curretPage);
     }
 
     // Runs only on single-product page, requires checks
@@ -312,7 +315,8 @@ function filterationPlant() {
         from++;
     }
     displayProdArray.length = to;
-    productPopulate(displayProdArray);
+
+    // productPopulate(displayProdArray);
 }
 
 // Pagination Functionality:
@@ -323,6 +327,7 @@ function filterationPlant() {
 function changePage(page) {
     // this function also is called when the user clicks and changes the
     // items per page input:
+    filterationPlant();
     console.log(page);
     console.log(displayProdArray);
     console.log(displayProdArray.length);
@@ -355,6 +360,8 @@ function changePage(page) {
         nextPageBtn.style.display = "inline-block";
         console.log("executed");
     }
+    currPageIndicator.textContent = curretPage;
+    productPopulate(paginatedProdArray);
 }
 
 function prevPage() {
