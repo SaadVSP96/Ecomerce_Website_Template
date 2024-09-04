@@ -213,17 +213,28 @@ let productData = [
 // Master Function to control function executions for specific pages:
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
-// To capture the checkboxes for filtering the products on the shop page
-const chkbxs = document.querySelectorAll(".chkbx");
-chkbxs.forEach((chkbx) => {
-    chkbx.addEventListener("click", filterationPlant);
-    chkbx.addEventListener("click", () => changePage(curretPage));
-});
+
 // define the current page globally:
 let curretPage = 1;
+
 // the following array is a deepcopy of the productData array and allows
-// us to through it around mutating it like its the town bike.
+// us to throw it around mutating it like its the town bike.
 let displayProdArray = structuredClone(productData);
+
+// Category Filteration:
+const chkbxs = document.querySelectorAll(".chkbx");
+chkbxs.forEach((chkbx) => {
+    chkbx.addEventListener("click", masterFunction);
+});
+
+// Pagination:
+const prevPageBtn = document.querySelector("#btn-prev");
+prevPageBtn.addEventListener("click", prevPage);
+const nextPageBtn = document.querySelector("#btn-next");
+nextPageBtn.addEventListener("click", nextPage);
+const itemCountSelector = document.querySelector("#itemPerPageSelect");
+itemCountSelector.addEventListener("change", masterFunction);
+
 // For Calling the Master function Each time a Page is loaded
 document.addEventListener("DOMContentLoaded", masterFunction);
 
@@ -236,7 +247,6 @@ function masterFunction() {
         currentURLpathname.includes("index.html") ||
         currentURLpathname == "/"
     ) {
-        // console.log(featuredFilterationPlant());
         productPopulate(featuredFilterationPlant());
     }
 
@@ -245,7 +255,9 @@ function masterFunction() {
         currentURLpathname.includes("shop.html") ||
         currentURLpathname == "/shop"
     ) {
-        changePage(curretPage);
+        productPopulate(
+            changePage(curretPage, categoryFilterationPlant(displayProdArray))
+        );
     }
 
     // Runs only on single-product page, requires checks
@@ -298,13 +310,10 @@ function featuredFilterationPlant() {
     return featuredProdArray;
 }
 
-// Filteration Function
+// Category Filteration Function
 // This function is responsible for reducing the displayObjects based on the selected
 // filters.
-function filterationPlant() {
-    // right now that we have access to the town bike, we need access to the
-    // the status of the category button values. We can store those values in
-    // an array:
+function categoryFilterationPlant(someProdArray) {
     // we need the same queryselector as before since we no longer have access
     // to the local array of the buttons, but their states are probably global.
     const activeCategories = [];
@@ -313,42 +322,26 @@ function filterationPlant() {
             activeCategories.push(chkbx.value);
         }
     });
-    let from = 0;
-    let to = 0;
-    while (from < productData.length) {
+
+    function categoryFilter(product) {
         const isSubset = activeCategories.every((category) =>
-            productData[from].categories.includes(category)
+            product.categories.includes(category)
         );
-        if (isSubset) {
-            displayProdArray[to] = productData[from];
-            to++;
-        }
-        from++;
+        return isSubset;
     }
-    displayProdArray.length = to;
+
+    let catfilteredProdArray = someProdArray.filter(categoryFilter);
+    return catfilteredProdArray;
 }
 
 // Pagination Functionality:
-// this function will take the global display prod array, and chop it
-// up further before it gets to the product populate function. The
 // goal is to reduce the items to the number of items which are to be displayed
-// as specified by the user:
-function changePage(page) {
-    // To capture the itemsPerPage input form:
-    const itemCountSelector = document.querySelector("#itemPerPageSelect");
-    itemCountSelector.addEventListener("change", () => changePage(curretPage));
-    // To capture the buttons for pagination
-    const prevPageBtn = document.querySelector("#btn-prev");
-    prevPageBtn.addEventListener("click", prevPage);
-    const nextPageBtn = document.querySelector("#btn-next");
-    nextPageBtn.addEventListener("click", nextPage);
+// on the page as specified by the user:
+function changePage(page, someProdArray) {
     const currPageIndicator = document.querySelector("#current-page");
     currPageIndicator.textContent = curretPage;
-    // this function also is called when the user clicks and changes the
-    // items per page input:
-    // filterationPlant();
     const itemsPerPage = parseInt(itemCountSelector.value);
-    const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
+    const noOfPages = Math.ceil(someProdArray.length / itemsPerPage);
     // Validate the current page:
     if (page < 1) page = 1;
     if (page > noOfPages) page = noOfPages;
@@ -356,8 +349,8 @@ function changePage(page) {
     // define a new array into which the object array should be spliced:
     let paginatedProdArray = [];
     for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
-        if (displayProdArray[i]) {
-            paginatedProdArray.push(displayProdArray[i]);
+        if (someProdArray[i]) {
+            paginatedProdArray.push(someProdArray[i]);
         }
     }
     if (page == 1) {
@@ -372,35 +365,36 @@ function changePage(page) {
         nextPageBtn.style.display = "inline-block";
     }
     currPageIndicator.textContent = page;
-    productPopulate(paginatedProdArray);
+    return paginatedProdArray;
 }
 
 function prevPage() {
     if (curretPage > 1) {
         curretPage--;
-        changePage(curretPage);
+        masterFunction();
     }
 }
 
 function nextPage() {
     curretPage++;
-    changePage(curretPage);
+    masterFunction();
 }
 
 // Product Population Functionality - Runs on Home Page and Shop Page
+// This is basically an end point function for our waterfall
 // Insert Objects dynamically instead of prewriting:
-function productPopulate(prodArray) {
+function productPopulate(someProdArray) {
     const pro_container = document.querySelector("#product1 .pro-container");
     pro_container.innerHTML = "";
     // define template literal and inserting objects iteratively:
-    for (let i = 0; i < prodArray.length; i++) {
+    for (let i = 0; i < someProdArray.length; i++) {
         // Use template literals correctly and pass the event object to the function
         let newProduct = `
     <div class="pro">
-        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${prodArray[i].prodID}'">
+        <img src="${someProdArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${someProdArray[i].prodID}'">
         <div class="desc">
-            <span>${prodArray[i].prodBrand}</span>
-            <h5>${prodArray[i].prodName}</h5>
+            <span>${someProdArray[i].prodBrand}</span>
+            <h5>${someProdArray[i].prodName}</h5>
             <div class="star">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -408,9 +402,9 @@ function productPopulate(prodArray) {
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <h4>$${prodArray[i].prodPrice}</h4>
-            <p>Product ID:- ${prodArray[i].prodID}</p>
-            <button onclick="addToCart(event, ${prodArray[i].prodID})">
+            <h4>$${someProdArray[i].prodPrice}</h4>
+            <p>Product ID:- ${someProdArray[i].prodID}</p>
+            <button onclick="addToCart(event, ${someProdArray[i].prodID})">
             <i class="fa fa-shopping-cart cart"></i>
             </button>
             </div>
