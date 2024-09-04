@@ -411,6 +411,11 @@ function cartEntryPopulate() {
     let cart = JSON.parse(localStorage.getItem("products"));
     // We must also have access to the container for each table row:
     const cartbody = document.querySelector("#cart tbody");
+    // in case cart is empty:
+    if (!cart) {
+        return;
+    }
+    // when cart is not empty:
     for (let i = 0; i < cart.length; i++) {
         // Now that prodIDs are in the cart array, we need to run a for loop over this array, and for each
         // prodID, we need to search it in the product data object array.
@@ -437,13 +442,15 @@ function cartEntryPopulate() {
                 <td class="name">${currProd.prodName}</td>
                 <td class="price">$${currProd.prodPrice}</td>
                 <td>
-                    <input type="number" value="${quantity}" min="1" class="quantity-input" onkeydown="return false" />
+                    <input type="number" value="${quantity}" min="1" class="quantity-input"/>
                 </td>
                 <td class="subtotal">$${subtotal}</td>
             </tr>
         `;
         // now append the HTMl for cart entry:
         cartbody.innerHTML += cartEntry;
+        // the function should also update the grand total:
+        console.log(cartbody);
     }
 
     // Should Handle the cart Total and Coupon Application Parts as well for when the page loads,
@@ -514,6 +521,13 @@ function cartEntryPopulate() {
 
     // function to update the subtotals
     function updateSubtotal(inputArea) {
+        console.log(inputArea);
+        console.log(inputArea.value);
+        console.log(typeof inputArea.value);
+        if (parseInt(inputArea.value) < 0 || isNaN(inputArea.value)) {
+            inputArea.value = 1;
+        }
+
         // We can capture the parent row element using the closest method:
         const cartEntry = inputArea.closest("tr");
         // to calculate the Entry's new subtotal, we'd need to capture the new value from
@@ -573,11 +587,16 @@ function cartEntryPopulate() {
                 "#cart-add #subtotal .grandTotal"
             ).innerText = `$ ${grandTotal}`;
         }
+        console.log(tableBody);
     }
 
+    // the cartEntryPopulate function has to also populate the grand total on the
+    // cart page loadup:
+    updateGrandtotal(cartbody);
+
+    // This part handles dumpping old data:
     // Initialize state
     let isPageVisible = true;
-
     // Listen for visibility change events
     document.addEventListener("visibilitychange", () => {
         isPageVisible = document.visibilityState === "visible";
