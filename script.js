@@ -5,7 +5,7 @@ let productData = [
         prodName: "Cartoon Shirt",
         prodAdress: "img/products/f1.jpg",
         prodBrand: "Adidas",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 78,
     },
     {
@@ -21,7 +21,7 @@ let productData = [
         prodName: "Havian Shirt",
         prodAdress: "img/products/f3.jpg",
         prodBrand: "Chanel",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 111,
     },
     {
@@ -29,7 +29,7 @@ let productData = [
         prodName: "F***Boy Shirt",
         prodAdress: "img/products/f4.jpg",
         prodBrand: "Prada",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 265,
     },
     {
@@ -37,7 +37,7 @@ let productData = [
         prodName: "Emo-Boy Shirt",
         prodAdress: "img/products/f5.jpg",
         prodBrand: "GAP",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 99,
     },
     {
@@ -85,7 +85,7 @@ let productData = [
         prodName: "Off White Dress Shirt",
         prodAdress: "img/products/n3.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 76,
     },
     {
@@ -133,7 +133,7 @@ let productData = [
         prodName: "Green Cargo Pants",
         prodAdress: "img/products/p1.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 290,
     },
     {
@@ -141,7 +141,7 @@ let productData = [
         prodName: "Blue Cargo Pants",
         prodAdress: "img/products/p2.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 270,
     },
     {
@@ -165,7 +165,7 @@ let productData = [
         prodName: "Brown Cargo Pants",
         prodAdress: "img/products/p5.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 230,
     },
     {
@@ -236,6 +236,8 @@ function masterFunction() {
         currentURLpathname.includes("index.html") ||
         currentURLpathname == "/"
     ) {
+        // console.log(featuredFilterationPlant());
+        productPopulate(featuredFilterationPlant());
     }
 
     // Runs on Shop Page, requires checks
@@ -278,6 +280,22 @@ function navBar() {
             nav.classList.remove("active");
         });
     }
+}
+
+// Featured Filteration Function
+// This function is supposed to make a new array directly from the main productData array
+// which contains the featured products and supply it to the product populate function for
+// populating featured products on the main page.
+function featuredFilterationPlant() {
+    const featuredProdArray = [];
+    let i = 0;
+    while (i < productData.length) {
+        if (productData[i].categories.includes("featured")) {
+            featuredProdArray.push(productData[i]);
+        }
+        i++;
+    }
+    return featuredProdArray;
 }
 
 // Filteration Function
@@ -328,7 +346,7 @@ function changePage(page) {
     currPageIndicator.textContent = curretPage;
     // this function also is called when the user clicks and changes the
     // items per page input:
-    filterationPlant();
+    // filterationPlant();
     const itemsPerPage = parseInt(itemCountSelector.value);
     const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
     // Validate the current page:
@@ -379,7 +397,7 @@ function productPopulate(prodArray) {
         // Use template literals correctly and pass the event object to the function
         let newProduct = `
     <div class="pro">
-        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
+        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${prodArray[i].prodID}'">
         <div class="desc">
             <span>${prodArray[i].prodBrand}</span>
             <h5>${prodArray[i].prodName}</h5>
