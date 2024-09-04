@@ -308,8 +308,6 @@ function filterationPlant() {
         from++;
     }
     displayProdArray.length = to;
-
-    // productPopulate(displayProdArray);
 }
 
 // Pagination Functionality:
@@ -355,7 +353,7 @@ function changePage(page) {
     } else {
         nextPageBtn.style.display = "inline-block";
     }
-    currPageIndicator.textContent = curretPage;
+    currPageIndicator.textContent = page;
     productPopulate(paginatedProdArray);
 }
 
@@ -449,8 +447,6 @@ function cartEntryPopulate() {
         `;
         // now append the HTMl for cart entry:
         cartbody.innerHTML += cartEntry;
-        // the function should also update the grand total:
-        console.log(cartbody);
     }
 
     // Should Handle the cart Total and Coupon Application Parts as well for when the page loads,
@@ -517,15 +513,15 @@ function cartEntryPopulate() {
             });
             cartEntry.querySelector("input").dispatchEvent(event);
         }
+        updateGrandtotal(cartbody);
     }
 
     // function to update the subtotals
     function updateSubtotal(inputArea) {
-        console.log(inputArea);
-        console.log(inputArea.value);
-        console.log(typeof inputArea.value);
         if (parseInt(inputArea.value) < 0 || isNaN(inputArea.value)) {
             inputArea.value = 1;
+        } else if (inputArea.value == "") {
+            inputArea.value = 0;
         }
 
         // We can capture the parent row element using the closest method:
@@ -587,7 +583,6 @@ function cartEntryPopulate() {
                 "#cart-add #subtotal .grandTotal"
             ).innerText = `$ ${grandTotal}`;
         }
-        console.log(tableBody);
     }
 
     // the cartEntryPopulate function has to also populate the grand total on the
