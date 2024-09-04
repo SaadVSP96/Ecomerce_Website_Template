@@ -221,18 +221,6 @@ chkbxs.forEach((chkbx) => {
 });
 // define the current page globally:
 let curretPage = 1;
-// To capture the itemsPerPage input form:
-const itemCountSelector = document.querySelector("#itemPerPageSelect");
-itemCountSelector.addEventListener("change", () => changePage(curretPage));
-// To capture the buttons for pagination
-const prevPageBtn = document.querySelector("#btn-prev");
-console.log(prevPageBtn);
-prevPageBtn.addEventListener("click", prevPage);
-const nextPageBtn = document.querySelector("#btn-next");
-nextPageBtn.addEventListener("click", nextPage);
-const currPageIndicator = document.querySelector("#current-page");
-currPageIndicator.textContent = curretPage;
-
 // the following array is a deepcopy of the productData array and allows
 // us to through it around mutating it like its the town bike.
 let displayProdArray = structuredClone(productData);
@@ -243,11 +231,16 @@ function masterFunction() {
     // Runs on all pages, no need for checks
     navBar();
 
-    // Runs on Home Page and Shop Page, requires checks
+    // Runs on Home Page requires checks
     if (
         currentURLpathname.includes("index.html") ||
+        currentURLpathname == "/"
+    ) {
+    }
+
+    // Runs on Shop Page, requires checks
+    if (
         currentURLpathname.includes("shop.html") ||
-        currentURLpathname == "/" ||
         currentURLpathname == "/shop"
     ) {
         changePage(curretPage);
@@ -325,6 +318,16 @@ function filterationPlant() {
 // goal is to reduce the items to the number of items which are to be displayed
 // as specified by the user:
 function changePage(page) {
+    // To capture the itemsPerPage input form:
+    const itemCountSelector = document.querySelector("#itemPerPageSelect");
+    itemCountSelector.addEventListener("change", () => changePage(curretPage));
+    // To capture the buttons for pagination
+    const prevPageBtn = document.querySelector("#btn-prev");
+    prevPageBtn.addEventListener("click", prevPage);
+    const nextPageBtn = document.querySelector("#btn-next");
+    nextPageBtn.addEventListener("click", nextPage);
+    const currPageIndicator = document.querySelector("#current-page");
+    currPageIndicator.textContent = curretPage;
     // this function also is called when the user clicks and changes the
     // items per page input:
     filterationPlant();
@@ -337,7 +340,9 @@ function changePage(page) {
     // define a new array into which the object array should be spliced:
     let paginatedProdArray = [];
     for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
-        paginatedProdArray.push(displayProdArray[i]);
+        if (displayProdArray[i]) {
+            paginatedProdArray.push(displayProdArray[i]);
+        }
     }
     if (page == 1) {
         prevPageBtn.style.display = "none";
