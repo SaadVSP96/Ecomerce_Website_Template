@@ -328,37 +328,27 @@ function changePage(page) {
     // this function also is called when the user clicks and changes the
     // items per page input:
     filterationPlant();
-    console.log(page);
-    console.log(displayProdArray);
-    console.log(displayProdArray.length);
     const itemsPerPage = parseInt(itemCountSelector.value);
-    console.log(itemsPerPage);
     const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
-    console.log(noOfPages);
     // Validate the current page:
     if (page < 1) page = 1;
     if (page > noOfPages) page = noOfPages;
-    console.log(page);
 
     // define a new array into which the object array should be spliced:
     let paginatedProdArray = [];
     for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
         paginatedProdArray.push(displayProdArray[i]);
     }
-    console.log(paginatedProdArray);
-
     if (page == 1) {
         prevPageBtn.style.display = "none";
     } else {
         prevPageBtn.style.display = "inline-block";
-        console.log("executed");
     }
 
     if (page == noOfPages) {
         nextPageBtn.style.display = "none";
     } else {
         nextPageBtn.style.display = "inline-block";
-        console.log("executed");
     }
     currPageIndicator.textContent = curretPage;
     productPopulate(paginatedProdArray);
