@@ -5,6 +5,7 @@ let productData = [
         prodName: "Cartoon Shirt",
         prodAdress: "img/products/f1.jpg",
         prodBrand: "Adidas",
+        categories: ["men", "shirts"],
         prodPrice: 78,
     },
     {
@@ -12,6 +13,7 @@ let productData = [
         prodName: "Garden Shirt",
         prodAdress: "img/products/f2.jpg",
         prodBrand: "Balenciaga",
+        categories: ["men", "shirts"],
         prodPrice: 578,
     },
     {
@@ -19,6 +21,7 @@ let productData = [
         prodName: "Havian Shirt",
         prodAdress: "img/products/f3.jpg",
         prodBrand: "Chanel",
+        categories: ["men", "shirts"],
         prodPrice: 111,
     },
     {
@@ -26,6 +29,7 @@ let productData = [
         prodName: "F***Boy Shirt",
         prodAdress: "img/products/f4.jpg",
         prodBrand: "Prada",
+        categories: ["men", "shirts"],
         prodPrice: 265,
     },
     {
@@ -33,6 +37,7 @@ let productData = [
         prodName: "Emo-Boy Shirt",
         prodAdress: "img/products/f5.jpg",
         prodBrand: "GAP",
+        categories: ["men", "shirts"],
         prodPrice: 99,
     },
     {
@@ -40,28 +45,199 @@ let productData = [
         prodName: "Virginity Screamer Shirt",
         prodAdress: "img/products/f6.jpg",
         prodBrand: "None",
+        categories: ["men", "shirts"],
         prodPrice: 8,
     },
     {
         prodID: 73,
         prodName: "Pants",
         prodAdress: "img/products/f7.jpg",
-        prodBrand: "The girl u fantasize about but dont approach",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
         prodPrice: 875,
     },
     {
         prodID: 82,
         prodName: "Shirt",
         prodAdress: "img/products/f8.jpg",
-        prodBrand: "The girl u fantasize about but dont approach",
+        prodBrand: "H3H3",
+        categories: ["women", "shirts"],
         prodPrice: 987,
+    },
+    {
+        prodID: 109,
+        prodName: "Light Blue Dress Shirt",
+        prodAdress: "img/products/n1.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 90,
+    },
+    {
+        prodID: 208,
+        prodName: "Light Gray Checkered Dress Shirt",
+        prodAdress: "img/products/n2.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 102,
+    },
+    {
+        prodID: 307,
+        prodName: "Off White Dress Shirt",
+        prodAdress: "img/products/n3.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 76,
+    },
+    {
+        prodID: 406,
+        prodName: "Camo Casual Shirt",
+        prodAdress: "img/products/n4.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 55,
+    },
+    {
+        prodID: 505,
+        prodName: "Denim Full Sleeves Shirt",
+        prodAdress: "img/products/n5.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "shirts"],
+        prodPrice: 145,
+    },
+    {
+        prodID: 604,
+        prodName: "Dress Shorts ??",
+        prodAdress: "img/products/n6.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 35,
+    },
+    {
+        prodID: 703,
+        prodName: "Wheatish Brown Dress Shirt",
+        prodAdress: "img/products/n7.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 260,
+    },
+    {
+        prodID: 802,
+        prodName: "Dark Gray Button Up Shirt",
+        prodAdress: "img/products/n8.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "shirts"],
+        prodPrice: 120,
+    },
+    {
+        prodID: 110,
+        prodName: "Green Cargo Pants",
+        prodAdress: "img/products/p1.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 290,
+    },
+    {
+        prodID: 115,
+        prodName: "Blue Cargo Pants",
+        prodAdress: "img/products/p2.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 270,
+    },
+    {
+        prodID: 120,
+        prodName: "Maroon Chinos",
+        prodAdress: "img/products/p3.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 190,
+    },
+    {
+        prodID: 125,
+        prodName: "Black Dress Pants",
+        prodAdress: "img/products/p4.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 200,
+    },
+    {
+        prodID: 130,
+        prodName: "Brown Cargo Pants",
+        prodAdress: "img/products/p5.jpg",
+        prodBrand: "H3H3",
+        categories: ["men", "pants"],
+        prodPrice: 230,
+    },
+    {
+        prodID: 135,
+        prodName: "White long Pants",
+        prodAdress: "img/products/w1.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
+        prodPrice: 310,
+    },
+    {
+        prodID: 140,
+        prodName: "Blue Denim Pants",
+        prodAdress: "img/products/w2.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
+        prodPrice: 250,
+    },
+    {
+        prodID: 145,
+        prodName: "Brown Casual Pants",
+        prodAdress: "img/products/w3.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
+        prodPrice: 180,
+    },
+    {
+        prodID: 150,
+        prodName: "Off White Long Pants",
+        prodAdress: "img/products/w4.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
+        prodPrice: 310,
+    },
+    {
+        prodID: 155,
+        prodName: "Bright Red Pants",
+        prodAdress: "img/products/w5.jpg",
+        prodBrand: "H3H3",
+        categories: ["women", "pants"],
+        prodPrice: 210,
     },
 ];
 
 // Master Function to control function executions for specific pages:
-document.addEventListener("DOMContentLoaded", masterFunction);
 const currentURLhref = window.location.href;
 const currentURLpathname = window.location.pathname;
+// To capture the checkboxes for filtering the products on the shop page
+const chkbxs = document.querySelectorAll(".chkbx");
+chkbxs.forEach((chkbx) => {
+    chkbx.addEventListener("click", filterationPlant);
+    chkbx.addEventListener("click", () => changePage(curretPage));
+});
+// define the current page globally:
+let curretPage = 1;
+// To capture the itemsPerPage input form:
+const itemCountSelector = document.querySelector("#itemPerPageSelect");
+itemCountSelector.addEventListener("change", () => changePage(curretPage));
+// To capture the buttons for pagination
+const prevPageBtn = document.querySelector("#btn-prev");
+console.log(prevPageBtn);
+prevPageBtn.addEventListener("click", prevPage);
+const nextPageBtn = document.querySelector("#btn-next");
+nextPageBtn.addEventListener("click", nextPage);
+const currPageIndicator = document.querySelector("#current-page");
+currPageIndicator.textContent = curretPage;
+
+// the following array is a deepcopy of the productData array and allows
+// us to through it around mutating it like its the town bike.
+let displayProdArray = structuredClone(productData);
+// For Calling the Master function Each time a Page is loaded
+document.addEventListener("DOMContentLoaded", masterFunction);
 
 function masterFunction() {
     // Runs on all pages, no need for checks
@@ -74,7 +250,7 @@ function masterFunction() {
         currentURLpathname == "/" ||
         currentURLpathname == "/shop"
     ) {
-        productPopulate();
+        changePage(curretPage);
     }
 
     // Runs only on single-product page, requires checks
@@ -111,20 +287,109 @@ function navBar() {
     }
 }
 
+// Filteration Function
+// This function is responsible for reducing the displayObjects based on the selected
+// filters.
+function filterationPlant() {
+    // right now that we have access to the town bike, we need access to the
+    // the status of the category button values. We can store those values in
+    // an array:
+    // we need the same queryselector as before since we no longer have access
+    // to the local array of the buttons, but their states are probably global.
+    const activeCategories = [];
+    chkbxs.forEach((chkbx) => {
+        if (chkbx.checked == true) {
+            activeCategories.push(chkbx.value);
+        }
+    });
+    let from = 0;
+    let to = 0;
+    while (from < productData.length) {
+        const isSubset = activeCategories.every((category) =>
+            productData[from].categories.includes(category)
+        );
+        if (isSubset) {
+            displayProdArray[to] = productData[from];
+            to++;
+        }
+        from++;
+    }
+    displayProdArray.length = to;
+
+    // productPopulate(displayProdArray);
+}
+
+// Pagination Functionality:
+// this function will take the global display prod array, and chop it
+// up further before it gets to the product populate function. The
+// goal is to reduce the items to the number of items which are to be displayed
+// as specified by the user:
+function changePage(page) {
+    // this function also is called when the user clicks and changes the
+    // items per page input:
+    filterationPlant();
+    console.log(page);
+    console.log(displayProdArray);
+    console.log(displayProdArray.length);
+    const itemsPerPage = parseInt(itemCountSelector.value);
+    console.log(itemsPerPage);
+    const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
+    console.log(noOfPages);
+    // Validate the current page:
+    if (page < 1) page = 1;
+    if (page > noOfPages) page = noOfPages;
+    console.log(page);
+
+    // define a new array into which the object array should be spliced:
+    let paginatedProdArray = [];
+    for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
+        paginatedProdArray.push(displayProdArray[i]);
+    }
+    console.log(paginatedProdArray);
+
+    if (page == 1) {
+        prevPageBtn.style.display = "none";
+    } else {
+        prevPageBtn.style.display = "inline-block";
+        console.log("executed");
+    }
+
+    if (page == noOfPages) {
+        nextPageBtn.style.display = "none";
+    } else {
+        nextPageBtn.style.display = "inline-block";
+        console.log("executed");
+    }
+    currPageIndicator.textContent = curretPage;
+    productPopulate(paginatedProdArray);
+}
+
+function prevPage() {
+    if (curretPage > 1) {
+        curretPage--;
+        changePage(curretPage);
+    }
+}
+
+function nextPage() {
+    curretPage++;
+    changePage(curretPage);
+}
+
 // Product Population Functionality - Runs on Home Page and Shop Page
 // Insert Objects dynamically instead of prewriting:
-// picking up the product container:
-function productPopulate() {
+function productPopulate(prodArray) {
     const pro_container = document.querySelector("#product1 .pro-container");
+    pro_container.innerHTML = "";
     // define template literal and inserting objects iteratively:
-    for (let i = 0; i < productData.length; i++) {
+    for (let i = 0; i < prodArray.length; i++) {
         // Use template literals correctly and pass the event object to the function
         let newProduct = `
     <div class="pro">
-        <img src="${productData[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
+        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
         <div class="desc">
-            <span>${productData[i].prodBrand}</span>
-            <h5>${productData[i].prodName}</h5>
+            <span>${prodArray[i].prodBrand}</span>
+            <h5>${prodArray[i].prodName}</h5>
             <div class="star">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -132,9 +397,9 @@ function productPopulate() {
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <h4>$${productData[i].prodPrice}</h4>
-            <p>Product ID:- ${productData[i].prodID}</p>
-            <button onclick="addToCart(event, ${productData[i].prodID})">
+            <h4>$${prodArray[i].prodPrice}</h4>
+            <p>Product ID:- ${prodArray[i].prodID}</p>
+            <button onclick="addToCart(event, ${prodArray[i].prodID})">
             <i class="fa fa-shopping-cart cart"></i>
             </button>
             </div>

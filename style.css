@@ -243,6 +243,28 @@ body {
     text-align: center;
 }
 
+#product1 .pro-population-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#product1 .pro-population-controls .pro-page-count form {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5rem;
+    padding: 1rem 2rem;
+}
+
+#product1 .pro-catg-container {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 2rem;
+    column-gap: 1.5rem;
+    align-items: center;
+}
+
 #product1 .pro-container {
     display: flex;
     flex-direction: row;
@@ -570,16 +592,23 @@ footer .copyright {
     text-align: center;
 }
 
-#pagination a {
+#pagination button {
     text-decoration: none;
     background-color: #088178;
     padding: 15px 20px;
     border-radius: 4px;
     color: #fff;
-    font-weight: 600;
 }
 
-#pagination a i {
+#pagination #current-page {
+    background-color: #088178;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#pagination button i {
     font-size: 16px;
     font-weight: 600;
 }
