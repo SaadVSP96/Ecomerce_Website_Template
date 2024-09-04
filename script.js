@@ -5,7 +5,7 @@ let productData = [
         prodName: "Cartoon Shirt",
         prodAdress: "img/products/f1.jpg",
         prodBrand: "Adidas",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 78,
     },
     {
@@ -21,7 +21,7 @@ let productData = [
         prodName: "Havian Shirt",
         prodAdress: "img/products/f3.jpg",
         prodBrand: "Chanel",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 111,
     },
     {
@@ -29,7 +29,7 @@ let productData = [
         prodName: "F***Boy Shirt",
         prodAdress: "img/products/f4.jpg",
         prodBrand: "Prada",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 265,
     },
     {
@@ -37,7 +37,7 @@ let productData = [
         prodName: "Emo-Boy Shirt",
         prodAdress: "img/products/f5.jpg",
         prodBrand: "GAP",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 99,
     },
     {
@@ -85,7 +85,7 @@ let productData = [
         prodName: "Off White Dress Shirt",
         prodAdress: "img/products/n3.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "shirts"],
+        categories: ["men", "shirts", "featured"],
         prodPrice: 76,
     },
     {
@@ -133,7 +133,7 @@ let productData = [
         prodName: "Green Cargo Pants",
         prodAdress: "img/products/p1.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 290,
     },
     {
@@ -141,7 +141,7 @@ let productData = [
         prodName: "Blue Cargo Pants",
         prodAdress: "img/products/p2.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 270,
     },
     {
@@ -165,7 +165,7 @@ let productData = [
         prodName: "Brown Cargo Pants",
         prodAdress: "img/products/p5.jpg",
         prodBrand: "H3H3",
-        categories: ["men", "pants"],
+        categories: ["men", "pants", "featured"],
         prodPrice: 230,
     },
     {
@@ -221,18 +221,6 @@ chkbxs.forEach((chkbx) => {
 });
 // define the current page globally:
 let curretPage = 1;
-// To capture the itemsPerPage input form:
-const itemCountSelector = document.querySelector("#itemPerPageSelect");
-itemCountSelector.addEventListener("change", () => changePage(curretPage));
-// To capture the buttons for pagination
-const prevPageBtn = document.querySelector("#btn-prev");
-console.log(prevPageBtn);
-prevPageBtn.addEventListener("click", prevPage);
-const nextPageBtn = document.querySelector("#btn-next");
-nextPageBtn.addEventListener("click", nextPage);
-const currPageIndicator = document.querySelector("#current-page");
-currPageIndicator.textContent = curretPage;
-
 // the following array is a deepcopy of the productData array and allows
 // us to through it around mutating it like its the town bike.
 let displayProdArray = structuredClone(productData);
@@ -243,11 +231,18 @@ function masterFunction() {
     // Runs on all pages, no need for checks
     navBar();
 
-    // Runs on Home Page and Shop Page, requires checks
+    // Runs on Home Page requires checks
     if (
         currentURLpathname.includes("index.html") ||
+        currentURLpathname == "/"
+    ) {
+        // console.log(featuredFilterationPlant());
+        productPopulate(featuredFilterationPlant());
+    }
+
+    // Runs on Shop Page, requires checks
+    if (
         currentURLpathname.includes("shop.html") ||
-        currentURLpathname == "/" ||
         currentURLpathname == "/shop"
     ) {
         changePage(curretPage);
@@ -287,6 +282,22 @@ function navBar() {
     }
 }
 
+// Featured Filteration Function
+// This function is supposed to make a new array directly from the main productData array
+// which contains the featured products and supply it to the product populate function for
+// populating featured products on the main page.
+function featuredFilterationPlant() {
+    const featuredProdArray = [];
+    let i = 0;
+    while (i < productData.length) {
+        if (productData[i].categories.includes("featured")) {
+            featuredProdArray.push(productData[i]);
+        }
+        i++;
+    }
+    return featuredProdArray;
+}
+
 // Filteration Function
 // This function is responsible for reducing the displayObjects based on the selected
 // filters.
@@ -315,8 +326,6 @@ function filterationPlant() {
         from++;
     }
     displayProdArray.length = to;
-
-    // productPopulate(displayProdArray);
 }
 
 // Pagination Functionality:
@@ -325,9 +334,19 @@ function filterationPlant() {
 // goal is to reduce the items to the number of items which are to be displayed
 // as specified by the user:
 function changePage(page) {
+    // To capture the itemsPerPage input form:
+    const itemCountSelector = document.querySelector("#itemPerPageSelect");
+    itemCountSelector.addEventListener("change", () => changePage(curretPage));
+    // To capture the buttons for pagination
+    const prevPageBtn = document.querySelector("#btn-prev");
+    prevPageBtn.addEventListener("click", prevPage);
+    const nextPageBtn = document.querySelector("#btn-next");
+    nextPageBtn.addEventListener("click", nextPage);
+    const currPageIndicator = document.querySelector("#current-page");
+    currPageIndicator.textContent = curretPage;
     // this function also is called when the user clicks and changes the
     // items per page input:
-    filterationPlant();
+    // filterationPlant();
     const itemsPerPage = parseInt(itemCountSelector.value);
     const noOfPages = Math.ceil(displayProdArray.length / itemsPerPage);
     // Validate the current page:
@@ -337,7 +356,9 @@ function changePage(page) {
     // define a new array into which the object array should be spliced:
     let paginatedProdArray = [];
     for (let i = itemsPerPage * (page - 1); i < page * itemsPerPage; i++) {
-        paginatedProdArray.push(displayProdArray[i]);
+        if (displayProdArray[i]) {
+            paginatedProdArray.push(displayProdArray[i]);
+        }
     }
     if (page == 1) {
         prevPageBtn.style.display = "none";
@@ -350,7 +371,7 @@ function changePage(page) {
     } else {
         nextPageBtn.style.display = "inline-block";
     }
-    currPageIndicator.textContent = curretPage;
+    currPageIndicator.textContent = page;
     productPopulate(paginatedProdArray);
 }
 
@@ -376,7 +397,7 @@ function productPopulate(prodArray) {
         // Use template literals correctly and pass the event object to the function
         let newProduct = `
     <div class="pro">
-        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${productData[i].prodID}'">
+        <img src="${prodArray[i].prodAdress}" alt="" / onclick="window.location.href='single_product.html?id=${prodArray[i].prodID}'">
         <div class="desc">
             <span>${prodArray[i].prodBrand}</span>
             <h5>${prodArray[i].prodName}</h5>
@@ -406,6 +427,11 @@ function cartEntryPopulate() {
     let cart = JSON.parse(localStorage.getItem("products"));
     // We must also have access to the container for each table row:
     const cartbody = document.querySelector("#cart tbody");
+    // in case cart is empty:
+    if (!cart) {
+        return;
+    }
+    // when cart is not empty:
     for (let i = 0; i < cart.length; i++) {
         // Now that prodIDs are in the cart array, we need to run a for loop over this array, and for each
         // prodID, we need to search it in the product data object array.
@@ -432,7 +458,7 @@ function cartEntryPopulate() {
                 <td class="name">${currProd.prodName}</td>
                 <td class="price">$${currProd.prodPrice}</td>
                 <td>
-                    <input type="number" value="${quantity}" min="1" class="quantity-input" onkeydown="return false" />
+                    <input type="number" value="${quantity}" min="1" class="quantity-input"/>
                 </td>
                 <td class="subtotal">$${subtotal}</td>
             </tr>
@@ -505,10 +531,17 @@ function cartEntryPopulate() {
             });
             cartEntry.querySelector("input").dispatchEvent(event);
         }
+        updateGrandtotal(cartbody);
     }
 
     // function to update the subtotals
     function updateSubtotal(inputArea) {
+        if (parseInt(inputArea.value) < 0 || isNaN(inputArea.value)) {
+            inputArea.value = 1;
+        } else if (inputArea.value == "") {
+            inputArea.value = 0;
+        }
+
         // We can capture the parent row element using the closest method:
         const cartEntry = inputArea.closest("tr");
         // to calculate the Entry's new subtotal, we'd need to capture the new value from
@@ -570,9 +603,13 @@ function cartEntryPopulate() {
         }
     }
 
+    // the cartEntryPopulate function has to also populate the grand total on the
+    // cart page loadup:
+    updateGrandtotal(cartbody);
+
+    // This part handles dumpping old data:
     // Initialize state
     let isPageVisible = true;
-
     // Listen for visibility change events
     document.addEventListener("visibilitychange", () => {
         isPageVisible = document.visibilityState === "visible";
