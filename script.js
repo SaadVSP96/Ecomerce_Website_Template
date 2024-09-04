@@ -255,6 +255,10 @@ function masterFunction() {
         currentURLpathname.includes("shop.html") ||
         currentURLpathname == "/shop"
     ) {
+        // waterfall and sieve approach
+        console.log(
+            priceSortingPlant(categoryFilterationPlant(displayProdArray))
+        );
         productPopulate(
             changePage(curretPage, categoryFilterationPlant(displayProdArray))
         );
@@ -310,7 +314,7 @@ function featuredFilterationPlant() {
     return featuredProdArray;
 }
 
-// Category Filteration Function
+// Category Filter Function:
 // This function is responsible for reducing the displayObjects based on the selected
 // filters.
 function categoryFilterationPlant(someProdArray) {
@@ -332,6 +336,62 @@ function categoryFilterationPlant(someProdArray) {
 
     let catfilteredProdArray = someProdArray.filter(categoryFilter);
     return catfilteredProdArray;
+}
+
+// Price Sorting Filter:
+
+function priceSortingPlant(someProdArray) {
+    let arr = mergeSort(someProdArray, 0, someProdArray.length - 1);
+
+    function mergeSort(arr, s, e) {
+        if (e - s + 1 <= 1) {
+            return arr;
+        }
+        // the middle index of the given product array
+        const m = Math.floor((s + e) / 2);
+        // sorting the left half
+        mergeSort(arr, s, m);
+        // sorting the right half
+        mergeSort(arr, m + 1, e);
+        // merge the sorted halfs
+        merge(arr, s, m, e);
+        // return the worked array
+        return arr;
+    }
+
+    function merge(arr, s, m, e) {
+        let L = arr.slice(s, m + 1);
+        let R = arr.slice(m + 1, e + 1);
+
+        let i = 0; //index to travel L
+        let j = 0; //index to travel R
+        let k = s; //index to travel arr
+
+        // merge the two sorted halfs into the original array
+        while (i < L.length && j < R.length) {
+            if (L[i].prodPrice < R[j].prodPrice) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // handle the half that has elements remaining
+        while (i < L.length) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < R.length) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    return arr;
 }
 
 // Pagination Functionality:
