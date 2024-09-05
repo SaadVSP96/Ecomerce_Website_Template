@@ -1035,6 +1035,12 @@ footer .copyright {
     padding: 12px 20px;
 }
 
+#coupon h4 {
+    display: none;
+    padding: 2rem;
+    color: red;
+}
+
 #subtotal {
     width: 40%;
     margin-bottom: 30px;
