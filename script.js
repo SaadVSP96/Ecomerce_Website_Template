@@ -726,22 +726,6 @@ function cartEntryPopulate() {
     // the cartEntryPopulate function has to also populate the grand total on the
     // cart page loadup:
     updateGrandtotal(cartbody);
-
-    // This part handles dumpping old data:
-    // Initialize state
-    let isPageVisible = true;
-    // Listen for visibility change events
-    document.addEventListener("visibilitychange", () => {
-        isPageVisible = document.visibilityState === "visible";
-    });
-
-    // Handle the beforeunload event
-    window.addEventListener("beforeunload", (event) => {
-        if (isPageVisible) {
-            // Clear localStorage only if the page is visible
-            localStorage.clear();
-        }
-    });
 }
 
 // Single Product Page:
