@@ -609,17 +609,10 @@ function cartEntryPopulate() {
     });
 
     // Add event listener to the Apply Button after the Coupon input
-    // We are going to stor the coupon value in the page function's scope
+    // We are going to store the coupon value in the page function's scope
     let couponValueUser = ""; // default value is no value in it.
     const couponValueActual = "AISLE9";
     const shippingFee = 0;
-    const applyCouponBtn = document.querySelector("#cart-add #coupon button");
-    applyCouponBtn.addEventListener("click", () => {
-        const couponInput = document.querySelector("#cart-add #coupon input");
-        couponValueUser = couponInput.value.trim();
-        // since coupon has been applied, gotta update the  grand total
-        updateGrandtotal(document.querySelector("#cart table tbody"));
-    });
 
     // function to remove from cart
     function removeFromCart(removeBtn) {
@@ -711,15 +704,42 @@ function cartEntryPopulate() {
         // a larger scoped variable -> couponValueUser. We check that against the
         // code in couponValueActual and apply a 30% discount on the grand total.
         let grandTotal = Total + shippingFee;
-        if (couponValueUser === couponValueActual) {
-            grandTotal -= Math.floor(grandTotal * 0.3);
-            document.querySelector(
-                "#cart-add #subtotal .grandTotal"
-            ).innerText = `$ ${grandTotal}`;
-        } else {
-            document.querySelector(
-                "#cart-add #subtotal .grandTotal"
-            ).innerText = `$ ${grandTotal}`;
+        document.querySelector(
+            "#cart-add #subtotal .grandTotal"
+        ).innerText = `$ ${grandTotal}`;
+
+        // Add event listener to the Apply Button after the Coupon input
+        // We are going to store the coupon value in the page function's scope
+        const applyCouponBtn = document.querySelector(
+            "#cart-add #coupon button"
+        );
+        applyCouponBtn.addEventListener("click", () => {
+            const couponInput = document.querySelector(
+                "#cart-add #coupon input"
+            );
+            couponValueUser = couponInput.value.trim();
+            // since coupon has been applied, gotta update the  grand total
+            applyCouponDiscount();
+        });
+
+        function applyCouponDiscount() {
+            if (
+                couponValueUser === couponValueActual &&
+                grandTotal >= Math.floor(grandTotal * 0.7)
+            ) {
+                const newTotal = grandTotal - Math.floor(grandTotal * 0.3);
+                document.querySelector(
+                    "#cart-add #subtotal .grandTotal"
+                ).innerText = `$ ${newTotal}`;
+            } else {
+                document.querySelector("#coupon h4").style.display = "block";
+                setTimeout(() => {
+                    document.querySelector("#coupon h4").style.display = "none";
+                }, 5000);
+                document.querySelector(
+                    "#cart-add #subtotal .grandTotal"
+                ).innerText = `$ ${grandTotal}`;
+            }
         }
     }
 
