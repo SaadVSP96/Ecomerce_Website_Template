@@ -235,7 +235,6 @@ price_sort_chkbxs.forEach((chkbx) => {
 
 // Search Filteration:
 const searchBar = document.querySelector("#search-item");
-console.log(searchBar);
 searchBar.addEventListener("keyup", masterFunction);
 
 // Pagination:
@@ -267,14 +266,13 @@ function masterFunction() {
         currentURLpathname == "/shop"
     ) {
         // waterfall and sieve approach
-
-        console.log(searchFilterationPlant(displayProdArray));
-
         productPopulate(
             priceSortingPlant(
                 changePage(
                     curretPage,
-                    categoryFilterationPlant(displayProdArray)
+                    searchFilterationPlant(
+                        categoryFilterationPlant(displayProdArray)
+                    )
                 )
             )
         );
