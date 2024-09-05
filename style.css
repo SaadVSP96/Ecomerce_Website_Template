@@ -246,7 +246,7 @@ body {
 #product1 .pro-population-controls {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -255,6 +255,26 @@ body {
     flex-direction: row;
     column-gap: 1.5rem;
     padding: 1rem 2rem;
+}
+
+#product1 .pro-population-controls .pro-search-bar form {
+    padding: 0.5rem 1rem;
+    border: 2px solid rgb(37, 137, 115);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product1 .pro-population-controls .pro-search-bar form input {
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+#product1 .pro-population-controls .pro-search-bar form i {
+    padding-left: 8px;
 }
 
 #product1 .pro-categories {

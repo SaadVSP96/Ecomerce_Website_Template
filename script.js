@@ -227,11 +227,16 @@ catg_chkbxs.forEach((chkbx) => {
     chkbx.addEventListener("click", masterFunction);
 });
 
-// Price Sorting
+// Price Sorting:
 const price_sort_chkbxs = document.querySelectorAll(".pro-sorting .chkbx");
 price_sort_chkbxs.forEach((chkbx) => {
     chkbx.addEventListener("click", masterFunction);
 });
+
+// Search Filteration:
+const searchBar = document.querySelector("#search-item");
+console.log(searchBar);
+searchBar.addEventListener("keyup", masterFunction);
 
 // Pagination:
 const prevPageBtn = document.querySelector("#btn-prev");
@@ -262,9 +267,9 @@ function masterFunction() {
         currentURLpathname == "/shop"
     ) {
         // waterfall and sieve approach
-        console.log(
-            priceSortingPlant(categoryFilterationPlant(displayProdArray))
-        );
+
+        console.log(searchFilterationPlant(displayProdArray));
+
         productPopulate(
             priceSortingPlant(
                 changePage(
@@ -350,10 +355,7 @@ function categoryFilterationPlant(someProdArray) {
 }
 
 // Price Sorting Filter:
-
 function priceSortingPlant(someProdArray) {
-    console.log(price_sort_chkbxs[0].value, price_sort_chkbxs[1].value);
-    console.log(price_sort_chkbxs[0].checked, price_sort_chkbxs[1].checked);
     // sortLowToHighBtn.checked == false;
     sortLowToHighBtn = price_sort_chkbxs[0];
     sortHighToLowBtn = price_sort_chkbxs[1];
@@ -440,6 +442,18 @@ function priceSortingPlant(someProdArray) {
             k++;
         }
     }
+}
+
+// Search Filter:
+function searchFilterationPlant(someProdArray) {
+    const searchTerm = searchBar.value.trim().toUpperCase();
+    const searchedProdArray = [];
+    someProdArray.forEach((prod) => {
+        if (prod.prodName.toUpperCase().indexOf(searchTerm) > -1) {
+            searchedProdArray.push(prod);
+        }
+    });
+    return searchedProdArray;
 }
 
 // Pagination Functionality:
