@@ -223,27 +223,18 @@ let displayProdArray = structuredClone(productData);
 
 // Category Filteration:
 const catg_chkbxs = document.querySelectorAll(".pro-categories .chkbx");
-catg_chkbxs.forEach((chkbx) => {
-    chkbx.addEventListener("click", masterFunction);
-});
+console.log(catg_chkbxs); // will display [] on pages where this is not found in the HTML
 
 // Price Sorting:
 const price_sort_chkbxs = document.querySelectorAll(".pro-sorting .chkbx");
-price_sort_chkbxs.forEach((chkbx) => {
-    chkbx.addEventListener("click", masterFunction);
-});
 
 // Search Filteration:
 const searchBar = document.querySelector("#search-item");
-searchBar.addEventListener("keyup", masterFunction);
 
 // Pagination:
 const prevPageBtn = document.querySelector("#btn-prev");
-prevPageBtn.addEventListener("click", prevPage);
 const nextPageBtn = document.querySelector("#btn-next");
-nextPageBtn.addEventListener("click", nextPage);
 const itemCountSelector = document.querySelector("#itemPerPageSelect");
-itemCountSelector.addEventListener("change", masterFunction);
 
 // For Calling the Master function Each time a Page is loaded
 document.addEventListener("DOMContentLoaded", masterFunction);
@@ -265,6 +256,21 @@ function masterFunction() {
         currentURLpathname.includes("shop.html") ||
         currentURLpathname == "/shop"
     ) {
+        // Category Filteration:
+        catg_chkbxs.forEach((chkbx) => {
+            chkbx.addEventListener("click", masterFunction);
+        });
+        // Price Sorting:
+        price_sort_chkbxs.forEach((chkbx) => {
+            chkbx.addEventListener("click", masterFunction);
+        });
+        // Search Filteration:
+        searchBar.addEventListener("keyup", masterFunction);
+        // Pagination
+        prevPageBtn.addEventListener("click", prevPage);
+        nextPageBtn.addEventListener("click", nextPage);
+        itemCountSelector.addEventListener("change", masterFunction);
+
         // waterfall and sieve approach
         productPopulate(
             priceSortingPlant(

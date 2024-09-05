@@ -248,6 +248,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 #product1 .pro-population-controls .pro-page-count form {
@@ -268,6 +269,7 @@ body {
 
 #product1 .pro-population-controls .pro-search-bar form input {
     border: none;
+    outline: none;
     font-size: 1.2rem;
     font-weight: 600;
     padding: 8px 12px;
