@@ -646,21 +646,16 @@ function cartEntryPopulate() {
         // We also need to update this value in the cart so that on reaload the data
         // is not lost. For that we need the current item's id and we use that to
         // locate it in the cart:
-        console.log(cartEntry);
         const cartEntryId = parseInt(
             cartEntry.querySelector(".ID").innerText,
             10
         );
-        console.log(cartEntryId);
         let cart = JSON.parse(localStorage.getItem("products"));
-        console.log(cart);
         const cartEntryIndex = cart.findIndex(
             (entry) => entry[0] === cartEntryId
         );
-        console.log(cartEntryIndex);
         cart[cartEntryIndex][1] = quantity;
         localStorage.setItem("products", JSON.stringify(cart));
-        console.log(cart);
         // we can similarly capture the unit product rate
         const unitPrice = parseInt(
             cartEntry.querySelector(".price").innerText.substring(1),
@@ -700,16 +695,13 @@ function cartEntryPopulate() {
             ).innerText = `$ ${shippingFee}`;
         }
         // Okay, so we got the shipping fee and the subtotals added
-        // Now We need to Acquire input from the Coupon, which we have stored in
-        // a larger scoped variable -> couponValueUser. We check that against the
-        // code in couponValueActual and apply a 30% discount on the grand total.
         let grandTotal = Total + shippingFee;
         document.querySelector(
             "#cart-add #subtotal .grandTotal"
         ).innerText = `$ ${grandTotal}`;
 
         // Add event listener to the Apply Button after the Coupon input
-        // We are going to store the coupon value in the page function's scope
+        // We are going to store the coupon value in the current function's scope
         const applyCouponBtn = document.querySelector(
             "#cart-add #coupon button"
         );
