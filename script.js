@@ -223,7 +223,7 @@ let displayProdArray = structuredClone(productData);
 
 // Category Filteration:
 const catg_chkbxs = document.querySelectorAll(".pro-categories .chkbx");
-console.log(catg_chkbxs); // will display [] on pages where this is not found in the HTML
+// console.log(catg_chkbxs); // will display [] on pages where this is not found in the HTML
 
 // Price Sorting:
 const price_sort_chkbxs = document.querySelectorAll(".pro-sorting .chkbx");
@@ -556,11 +556,11 @@ function cartEntryPopulate() {
         // Now that prodIDs are in the cart array, we need to run a for loop over this array, and for each
         // prodID, we need to search it in the product data object array.
         const currProdIndex = productData.findIndex(
-            (obj) => obj.prodID === cart[i]
+            (obj) => obj.prodID === cart[i][0]
         );
         currProd = productData[currProdIndex];
         // Calculate the initial subtotal (prodPrice * quantity)
-        const quantity = 1; // default quantity is 1
+        const quantity = cart[i][1];
         const subtotal = currProd.prodPrice * quantity;
         // now that the currProdIndex is in hand, we can access its properties to populate the items in
         // the manner used in the design.
@@ -618,32 +618,15 @@ function cartEntryPopulate() {
     function removeFromCart(removeBtn) {
         // We can capture the parent row element using the closest method:
         const cartEntry = removeBtn.closest("tr");
-        if (parseInt(cartEntry.querySelector("input").value, 10) === 1) {
-            currentProdId = parseInt(
-                cartEntry.querySelector(".ID").innerText,
-                10
-            );
-            // Now to remove the product from local storage
-            let cart = JSON.parse(localStorage.getItem("products"));
-            cart = cart.filter((item) => {
-                return item !== currentProdId;
-            });
-            localStorage.setItem("products", JSON.stringify(cart));
-            // remove the single count entry from the cart table
-            cartEntry.remove();
-        } else if (parseInt(cartEntry.querySelector("input").value, 10) > 1) {
-            // in case there are more than one of the same item, now its better
-            // to just recall add the update subtotal function which is attatched
-            // to the event listener in the input text area after updating its value
-            // here
-            cartEntry.querySelector("input").value -= 1;
-            // Trigger the 'input' event programmatically
-            const event = new Event("input", {
-                bubbles: false, // Makes the event bubble up the DOM
-                cancelable: true, // Allows the event to be canceled
-            });
-            cartEntry.querySelector("input").dispatchEvent(event);
-        }
+        currentProdId = parseInt(cartEntry.querySelector(".ID").innerText, 10);
+        // Now to remove the product from local storage
+        let cart = JSON.parse(localStorage.getItem("products"));
+        cart = cart.filter((item) => {
+            return item[0] !== currentProdId;
+        });
+        localStorage.setItem("products", JSON.stringify(cart));
+        // remove the single count entry from the cart table
+        cartEntry.remove();
         updateGrandtotal(cartbody);
     }
 
@@ -660,6 +643,24 @@ function cartEntryPopulate() {
         // to calculate the Entry's new subtotal, we'd need to capture the new value from
         // the user in the input area
         const quantity = parseInt(inputArea.value);
+        // We also need to update this value in the cart so that on reaload the data
+        // is not lost. For that we need the current item's id and we use that to
+        // locate it in the cart:
+        console.log(cartEntry);
+        const cartEntryId = parseInt(
+            cartEntry.querySelector(".ID").innerText,
+            10
+        );
+        console.log(cartEntryId);
+        let cart = JSON.parse(localStorage.getItem("products"));
+        console.log(cart);
+        const cartEntryIndex = cart.findIndex(
+            (entry) => entry[0] === cartEntryId
+        );
+        console.log(cartEntryIndex);
+        cart[cartEntryIndex][1] = quantity;
+        localStorage.setItem("products", JSON.stringify(cart));
+        console.log(cart);
         // we can similarly capture the unit product rate
         const unitPrice = parseInt(
             cartEntry.querySelector(".price").innerText.substring(1),
@@ -667,7 +668,6 @@ function cartEntryPopulate() {
         );
         const newSubtotal = quantity * unitPrice;
         cartEntry.querySelector(".subtotal").innerText = `$${newSubtotal}`;
-
         // Might as Well Update the Grand Total from here and suply it with the parent to
         // the table row since we are looking to then collect all of the item's subtotals
         updateGrandtotal(cartEntry.parentElement);
@@ -832,7 +832,7 @@ function addToCart(event, prodID) {
     // If this capability is added, we will then have to add an else to increase the
     // item Qty count. for now, no need for an else.
     if (binarySearch(cart, prodID) === -1) {
-        cart.push(prodID);
+        cart.push([prodID, 1]);
     }
     // okay, now we put the cart array back into the "products" row of local storage
     localStorage.setItem("products", JSON.stringify(cart));
@@ -848,7 +848,7 @@ function insertionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
         j = i - 1;
         innerWhile: while (j >= 0) {
-            if (arr[j] < arr[j + 1]) {
+            if (arr[j][0] < arr[j + 1][0]) {
                 break innerWhile;
             }
             temp = arr[j + 1];
@@ -868,8 +868,8 @@ function binarySearch(arr, target) {
     let M;
     while (L <= R) {
         M = Math.floor((L + R) / 2);
-        if (target > arr[M]) L = M + 1;
-        else if (target < arr[M]) R = M - 1;
+        if (target > arr[M][0]) L = M + 1;
+        else if (target < arr[M][0]) R = M - 1;
         else return M;
     }
     return -1;
