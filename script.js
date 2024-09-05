@@ -222,8 +222,14 @@ let curretPage = 1;
 let displayProdArray = structuredClone(productData);
 
 // Category Filteration:
-const chkbxs = document.querySelectorAll(".chkbx");
-chkbxs.forEach((chkbx) => {
+const catg_chkbxs = document.querySelectorAll(".pro-categories .chkbx");
+catg_chkbxs.forEach((chkbx) => {
+    chkbx.addEventListener("click", masterFunction);
+});
+
+// Price Sorting
+const price_sort_chkbxs = document.querySelectorAll(".pro-sorting .chkbx");
+price_sort_chkbxs.forEach((chkbx) => {
     chkbx.addEventListener("click", masterFunction);
 });
 
@@ -260,7 +266,12 @@ function masterFunction() {
             priceSortingPlant(categoryFilterationPlant(displayProdArray))
         );
         productPopulate(
-            changePage(curretPage, categoryFilterationPlant(displayProdArray))
+            priceSortingPlant(
+                changePage(
+                    curretPage,
+                    categoryFilterationPlant(displayProdArray)
+                )
+            )
         );
     }
 
@@ -321,7 +332,7 @@ function categoryFilterationPlant(someProdArray) {
     // we need the same queryselector as before since we no longer have access
     // to the local array of the buttons, but their states are probably global.
     const activeCategories = [];
-    chkbxs.forEach((chkbx) => {
+    catg_chkbxs.forEach((chkbx) => {
         if (chkbx.checked == true) {
             activeCategories.push(chkbx.value);
         }
@@ -334,14 +345,52 @@ function categoryFilterationPlant(someProdArray) {
         return isSubset;
     }
 
-    let catfilteredProdArray = someProdArray.filter(categoryFilter);
+    const catfilteredProdArray = someProdArray.filter(categoryFilter);
     return catfilteredProdArray;
 }
 
 // Price Sorting Filter:
 
 function priceSortingPlant(someProdArray) {
-    let arr = mergeSort(someProdArray, 0, someProdArray.length - 1);
+    console.log(price_sort_chkbxs[0].value, price_sort_chkbxs[1].value);
+    console.log(price_sort_chkbxs[0].checked, price_sort_chkbxs[1].checked);
+    // sortLowToHighBtn.checked == false;
+    sortLowToHighBtn = price_sort_chkbxs[0];
+    sortHighToLowBtn = price_sort_chkbxs[1];
+
+    if (
+        sortLowToHighBtn.checked == false &&
+        sortHighToLowBtn.checked == false
+    ) {
+        const arr = someProdArray;
+        return arr;
+    } else if (
+        sortLowToHighBtn.checked == true &&
+        sortHighToLowBtn.checked == false
+    ) {
+        const arr = mergeSort(someProdArray, 0, someProdArray.length - 1);
+        return arr;
+    } else if (
+        sortHighToLowBtn.checked == true &&
+        sortLowToHighBtn.checked == false
+    ) {
+        const arr = mergeSort(someProdArray, 0, someProdArray.length - 1);
+        // need to reverse entire array, using sliding window approach:
+        let L = 0;
+        let R = arr.length - 1;
+        let buffer = undefined;
+        while (L < R) {
+            buffer = arr[L];
+            arr[L] = arr[R];
+            arr[R] = buffer;
+            L++;
+            R--;
+        }
+        return arr;
+    } else {
+        const arr = someProdArray;
+        return arr;
+    }
 
     function mergeSort(arr, s, e) {
         if (e - s + 1 <= 1) {
@@ -391,7 +440,6 @@ function priceSortingPlant(someProdArray) {
             k++;
         }
     }
-    return arr;
 }
 
 // Pagination Functionality:
