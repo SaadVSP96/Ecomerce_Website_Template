@@ -63,43 +63,78 @@
                         </select>
                     </form>
                 </div>
-                <div class="pro-catg-container">
-                    <h4>Categories:</h4>
-                    <div class="pro-catg">
+                <div class="pro-search-bar">
+                    <form>
+                        <i class="fa fa-search"></i>
                         <input
-                            type="checkbox"
-                            id="men"
-                            class="chkbx"
-                            value="men"
+                            type="text"
+                            name=""
+                            id="search-item"
+                            placeholder="Search Products"
                         />
-                        <label for="men"> Men</label>
+                        <!--onkeyup="search()"-->
+                    </form>
+                </div>
+                <div class="pro-filters-container">
+                    <div class="pro-categories">
+                        <h4>Categories:</h4>
+                        <div class="pro-catg">
+                            <input
+                                type="checkbox"
+                                id="men"
+                                class="chkbx"
+                                value="men"
+                            />
+                            <label for="men"> Men</label>
+                        </div>
+                        <div class="pro-catg">
+                            <input
+                                type="checkbox"
+                                id="women"
+                                class="chkbx"
+                                value="women"
+                            />
+                            <label for="women"> Women</label>
+                        </div>
+                        <div class="pro-catg">
+                            <input
+                                type="checkbox"
+                                id="shirts"
+                                class="chkbx"
+                                value="shirts"
+                            />
+                            <label for="shirts"> Shirts</label>
+                        </div>
+                        <div class="pro-catg">
+                            <input
+                                type="checkbox"
+                                id="pants"
+                                class="chkbx"
+                                value="pants"
+                            />
+                            <label for="shirts"> Pants</label>
+                        </div>
                     </div>
-                    <div class="pro-catg">
-                        <input
-                            type="checkbox"
-                            id="women"
-                            class="chkbx"
-                            value="women"
-                        />
-                        <label for="women"> Women</label>
-                    </div>
-                    <div class="pro-catg">
-                        <input
-                            type="checkbox"
-                            id="shirts"
-                            class="chkbx"
-                            value="shirts"
-                        />
-                        <label for="shirts"> Shirts</label>
-                    </div>
-                    <div class="pro-catg">
-                        <input
-                            type="checkbox"
-                            id="pants"
-                            class="chkbx"
-                            value="pants"
-                        />
-                        <label for="shirts"> Pants</label>
+                    <div class="pro-sorting">
+                        <h4>Sort By Price:</h4>
+                        <div class="sort-type">
+                            <input
+                                type="checkbox"
+                                id="Low_to_High"
+                                class="chkbx"
+                                value="Low_to_High"
+                            />
+                            <label for="Low_to_High"> Low To High</label>
+                        </div>
+                        <div class="sort-type">
+                            <input
+                                type="checkbox"
+                                id="High_to_Low"
+                                class="chkbx"
+                                value="High_to_Low"
+                            />
+                            <label for="High_to_Low"> High To Low</label>
+                        </div>
                     </div>
                 </div>
             </div>

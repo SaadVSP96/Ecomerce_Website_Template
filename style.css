@@ -257,7 +257,35 @@ body {
     padding: 1rem 2rem;
 }
 
-#product1 .pro-catg-container {
+#product1 .pro-population-controls .pro-search-bar form {
+    padding: 0.5rem 1rem;
+    border: 2px solid rgb(37, 137, 115);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product1 .pro-population-controls .pro-search-bar form input {
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+#product1 .pro-population-controls .pro-search-bar form i {
+    padding-left: 8px;
+}
+
+#product1 .pro-categories {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 2rem;
+    column-gap: 1.5rem;
+    align-items: center;
+}
+
+#product1 .pro-sorting {
     display: flex;
     flex-direction: row;
     padding: 1rem 2rem;
@@ -274,6 +302,7 @@ body {
     padding-top: 20px;
     flex-wrap: wrap;
 }
+
 #product1 .pro {
     width: 23%;
     min-width: 250px;
