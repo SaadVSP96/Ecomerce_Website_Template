@@ -2,6 +2,9 @@
 import { navBar } from "./navbar.js";
 // importing function to import all products
 import { fetchAllProducts } from "./fetchProducts.js";
+// importing add to cart function from addToCart
+import { addToCart } from "./addToCart.js";
+
 // the url needs to be accessed since it will allow us to read the query parameter
 const currentURLhref = window.location.href;
 // Initialize navbar functionality
@@ -11,8 +14,9 @@ let productData;
 // now call the Immediately Invoked Function Expression (IIFE)
 // to import and assign the data
 (async () => {
-    productData = await fetchAllProducts();
-    console.log(productData);
+    // as a demo: not for real but yeah u can space out the assignment from the await
+    productData = fetchAllProducts();
+    productData = await productData;
     // the call has to be made inside due to asynchronous nature of JS
     singleProductPopulate();
 })();
@@ -38,7 +42,7 @@ function singleProductPopulate() {
     document
         .querySelector(".single-pro-details button")
         .addEventListener("click", function (event) {
-            addToCart(event, productData[mainProdIndex].prodID);
+            addToCart(event, productData[mainProdIndex]._id);
         });
     // now we need to traverse the addresses in the address array, using a circular array
     // approach, we will do this to update the small images around the main image
