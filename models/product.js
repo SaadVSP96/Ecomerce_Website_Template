@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "product brand must be provided"],
     },
-    category: {
+    categories: {
         type: [String],
         required: [true, "at least one category must be provided"],
     },
