@@ -1,23 +1,33 @@
+// importing functionality of navbar
 import { navBar } from "./navbar.js";
-
+// importing function to import all products
+import { fetchAllProducts } from "./fetchProducts.js";
+// the url needs to be accessed since it will allow us to read the query parameter
 const currentURLhref = window.location.href;
 // Initialize navbar functionality
 navBar();
-singleProductPopulate();
+// define product data before the async call
+let productData;
+// now call the Immediately Invoked Function Expression (IIFE)
+// to import and assign the data
+(async () => {
+    productData = await fetchAllProducts();
+    console.log(productData);
+    // the call has to be made inside due to asynchronous nature of JS
+    singleProductPopulate();
+})();
+
 // Single Product Page:
 // The product needs to dynamically update itself based on which one we are discussing
 // Ok so now we have a way to check the product id using query param, now we need a way to populate the Main
 // and small images dynamically such that they correspond around the main image id which
 // we are getting from the query parameter.
 function singleProductPopulate() {
-    // Now We are going to dynamically update the main image using the source array
     const currentProdId = ((currentURLhref) => {
-        // parseInt converts the string to a number
-        return parseInt(currentURLhref.split("?id=")[1], 10);
+        return currentURLhref.split("?id=")[1];
     })(currentURLhref);
-    // find the requisite object in the object array:
     const mainProdIndex = productData.findIndex(
-        (obj) => obj.prodID === currentProdId
+        (obj) => obj._id === currentProdId
     );
     const mainProdImg = document.getElementById("MainImg");
     const mainProdName = document.querySelector(".single-pro-details h4");
@@ -30,7 +40,6 @@ function singleProductPopulate() {
         .addEventListener("click", function (event) {
             addToCart(event, productData[mainProdIndex].prodID);
         });
-
     // now we need to traverse the addresses in the address array, using a circular array
     // approach, we will do this to update the small images around the main image
     const smallImg = document.querySelectorAll(".small-img");
