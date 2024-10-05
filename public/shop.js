@@ -1,14 +1,9 @@
-// importing functionality of navbar
-import { navBar } from "./navbar.js";
 // importing function to import all products
 import { fetchAllProducts } from "./fetchProducts.js";
 // importing add to cart function from addToCart
 import { addToCart } from "./addToCart.js";
 // importing product rendering functionality
 import { productPopulate } from "./productPopulate.js";
-
-// Initialize navbar functionality
-navBar();
 
 // fetchAllProducts is an async function and so to its direct result is
 // gonna be a promise. We can await its result to get the actual array but
