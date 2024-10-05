@@ -12,7 +12,6 @@ let productData;
     // as a demo: not for real but yeah u can space out the assignment from the await
     productData = fetchAllProducts(); // right now this is just a promise
     productData = await productData; // waiting for promise to get resolved
-    console.log(productData);
     cartEntryPopulate();
 })();
 
@@ -20,7 +19,6 @@ let productData;
 function cartEntryPopulate() {
     // First we need the array in the cart, so get those prodIDs
     let cart = JSON.parse(localStorage.getItem("products"));
-    console.log(cart);
     // We must also have access to the container for each table row:
     const cartbody = document.querySelector("#cart tbody");
     // in case cart is empty:
@@ -35,7 +33,6 @@ function cartEntryPopulate() {
             (obj) => obj._id === cart[i]
         );
         const currProd = productData[currProdIndex];
-        console.log(currProd);
         // Calculate the initial subtotal (prodPrice * quantity)
         const quantity = 1;
         const subtotal = currProd.prodPrice * quantity;

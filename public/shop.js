@@ -77,7 +77,6 @@ function masterFunction() {
         )
     );
 }
-
 // Category Filter Function:
 // This function is responsible for reducing the displayObjects based on the selected
 // filters.

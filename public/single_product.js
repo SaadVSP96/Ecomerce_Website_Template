@@ -1,5 +1,3 @@
-// importing functionality of navbar
-import { navBar } from "./navbar.js";
 // importing function to import all products
 import { fetchAllProducts } from "./fetchProducts.js";
 // importing add to cart function from addToCart
@@ -72,6 +70,3 @@ function singleProductPopulate() {
         mainImg.src = smallImg[3].src;
     };
 }
-
-// Initialize navbar functionality
-navBar();

@@ -1,5 +1,3 @@
-// importing functionality of navbar
-import { navBar } from "./navbar.js";
 // importing product rendering functionality
 import { productPopulate } from "./productPopulate.js";
 
@@ -22,9 +20,6 @@ const featuredFilterationPlant = async () => {
     }
     return featuredProdArray;
 };
-
-// Initialize navbar functionality
-navBar();
 
 // Populate featured products
 featuredFilterationPlant().then((featuredProducts) => {
