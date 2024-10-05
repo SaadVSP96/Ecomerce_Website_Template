@@ -23,13 +23,15 @@
     <body>
         <section id="header">
             <div class="container">
-                <a href="#"><img src="img/logo.png" class="logo" alt="" /></a>
+                <a href="index.html"
+                    ><img src="img/logo.png" class="logo" alt=""
+                /></a>
                 <div>
                     <ul id="navbar">
                         <li><a href="index.html">Home</a></li>
-                        <li><a class="active" href="shop.html">Shop</a></li>
+                        <li><a href="shop.html">Shop</a></li>
                         <li><a href="blog.html">Blog</a></li>
-                        <li><a href="about.html">About</a></li>
+                        <li><a class="active" href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li id="lg-bag">
                             <a href="cart.html"
@@ -46,59 +48,70 @@
             </div>
         </section>
 
-        <section id="prodetails" class="section-p1 container">
-            <div class="single-pro-image">
-                <img src="img/products/f1.jpg" width="100%" id="MainImg" />
-                <div class="small-img-group">
-                    <div class="small-img-col">
-                        <img
-                            src="img/products/f1.jpg"
-                            width="100%"
-                            class="small-img"
-                            alt=""
-                        />
-                    </div>
-                    <div class="small-img-col">
-                        <img
-                            src="img/products/f2.jpg"
-                            width="100%"
-                            class="small-img"
-                            alt=""
-                        />
-                    </div>
-                    <div class="small-img-col">
-                        <img
-                            src="img/products/f3.jpg"
-                            width="100%"
-                            class="small-img"
-                            alt=""
-                        />
-                    </div>
-                    <div class="small-img-col">
-                        <img
-                            src="img/products/f4.jpg"
-                            width="100%"
-                            class="small-img"
-                            alt=""
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="single-pro-details">
-                <h4></h4>
-                <h2></h2>
-                <button class="normal">Add To Cart</button>
-                <h4>Product Details</h4>
-                <span
-                    >Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Magnam unde quisquam laboriosam quidem, quos error dicta
-                    commodi placeat ipsum veritatis cumque laborum ratione
-                    tempora itaque debitis provident obcaecati recusandae minus
-                    dolor! Modi quasi odio quaerat ipsum aspernatur mollitia
-                    quod, quia expedita vero a iste, labore nesciunt, pariatur
-                    quod, quia expedita vero a iste, labore nesciunt, pariatur
-                    non nihil maxime.</span
+        <section id="page-header" class="about-header">
+            <h2>#KnowUS</h2>
+            <p>Read all about our products!</p>
+        </section>
+
+        <section id="about-head" class="section-p1 container">
+            <img src="img/about/a6.jpg" alt="" />
+            <div>
+                <h2>Who We Are?</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti distinctio voluptatem labore, maxime unde quidem
+                    sapiente consectetur deserunt optio facere earum, vel omnis
+                    aut. Autem libero necessitatibus ducimus dolorum aliquam
+                    maxime minima, esse at eligendi. Sint voluptatem dignissimos
+                    adipisci earum error asperiores dolorem tempore, impedit
+                    totam aliquid aspernatur omnis, nihil voluptates recusandae
+                    qui voluptatum odit! Vitae dolorem amet odit officia?
+                </p>
+                <abbr title=""
+                    >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Omnis ad quas recusandae aut. Possimus, id distinctio
+                    impedit numquam eum quos!</abbr
                 >
+                <br /><br />
+                <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%"
+                    >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius dolore beatae, a consequatur eum possimus voluptas
+                    deserunt commodi animi dicta.</marquee
+                >
+            </div>
+        </section>
+
+        <section id="about-app" class="section-p1">
+            <h1>Download Our <a href="#">App</a></h1>
+            <div class="video">
+                <video autoplay muted loop src="img/about/1.mp4"></video>
+            </div>
+        </section>
+
+        <section id="feature" class="section-p1 container">
+            <div class="fe-box">
+                <img src="img/features/f1.png" alt="" />
+                <h6>Free Shipping</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f2.png" alt="" />
+                <h6>Online Order</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f3.png" alt="" />
+                <h6>Save Money</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f4.png" alt="" />
+                <h6>Promotions</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f5.png" alt="" />
+                <h6>Happy Sell</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f6.png" alt="" />
+                <h6>24/7 Support</h6>
             </div>
         </section>
 
@@ -170,7 +183,6 @@
                 <p>2021, Tech2 etc - HTML CSS ECOMMERCE TEMPLATE</p>
             </div>
         </footer>
-
-        <script src="script.js"></script>
+        <script type="module" src="navbar.js"></script>
     </body>
 </html>

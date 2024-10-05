@@ -1,5 +1,3 @@
-// PROJECT CLOSED -> 9/5/2024
-
 // All Product Data:
 let productData = [
     {

@@ -23,15 +23,19 @@
     <body>
         <section id="header">
             <div class="container">
-                <a href="#"><img src="img/logo.png" class="logo" alt="" /></a>
+                <a href="index.html"
+                    ><img src="img/logo.png" class="logo" alt=""
+                /></a>
                 <div>
                     <ul id="navbar">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="shop.html">Shop</a></li>
                         <li><a href="blog.html">Blog</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li id="lg-bag" class="active">
+                        <li>
+                            <a class="active" href="contact.html">Contact</a>
+                        </li>
+                        <li id="lg-bag">
                             <a href="cart.html"
                                 ><i class="fa fa-shopping-cart"></i
                             ></a>
@@ -51,72 +55,103 @@
             <p>LEAVE A MESSAGE, We Love To Hear From You!</p>
         </section>
 
-        <section id="cart" class="section-p1">
-            <table width="100%">
-                <thead>
-                    <tr>
-                        <td>Remove</td>
-                        <td>Image</td>
-                        <td>Product ID</td>
-                        <td>Product</td>
-                        <td>Unit Price</td>
-                        <td>Quantity</td>
-                        <td>Subtotal</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- will be filled up dynamically -->
-                    <!-- <tr>
-                        <td class="remove">
-                            <button class="remove-Btn">
-                                <i class="fa fa-times-circle"></i>
-                            </button>
-                        </td>
-                        <td class="imgAdress">
-                            <img src="${currProd.prodAdress}" alt="" />
-                        </td>
-                        <td class="ID">${currProd.prodID}</td>
-                        <td class="name">${currProd.prodName}</td>
-                        <td class="price">$${currProd.prodPrice}</td>
-                        <td>
-                            <input type="number" value="${quantity}" min="1" class="quantity-input"/>
-                        </td>
-                        <td class="subtotal">$${subtotal}</td>
-                    </tr> -->
-                </tbody>
-            </table>
-        </section>
-
-        <section id="cart-add">
-            <div id="coupon">
-                <h3>Apply Coupon</h3>
+        <section id="contact-details" class="section-p1 container">
+            <div class="details">
+                <span>GET IN TOUCH</span>
+                <h2>Visit one of our agency locations or contact us today</h2>
+                <h3>Head Office</h3>
                 <div>
-                    <input type="text" placeholder="Enter Coupon Code" />
-                    <button class="normal">Apply</button>
+                    <li>
+                        <i class="fa fa-map"></i>
+                        <p>56 Glassford Street Glasgow G1 New York</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope"></i>
+                        <p>contact@example.com</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-phone-alt"></i>
+                        <p>contact@example.com</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-clock"></i>
+                        <p>Monday to Saturday: 9:00am to 16:00pm</p>
+                    </li>
                 </div>
-                <h4>Invalid Code</h4>
             </div>
-            <div id="subtotal">
-                <h3>Cart Totals</h3>
-                <table>
-                    <tr>
-                        <td>Cart Subtotal</td>
-                        <td class="sumSubTotals"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping</td>
-                        <td class="shipping">Free</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Total</strong></td>
-                        <td class="grandTotal"><strong></strong></td>
-                    </tr>
-                </table>
-                <button class="normal">Proceed To Checkout</button>
+            <div class="map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2469.687034842516!2d-1.2570928240112758!3d51.75704619243607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876c6a9ef8c485b%3A0xd2ff1883a001afed!2sUniversity%20of%20Oxford!5e0!3m2!1sen!2s!4v1724656818917!5m2!1sen!2s"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
             </div>
         </section>
 
-        <footer class="section-p1">
+        <section id="form-details" class="container">
+            <form action="">
+                <span>LEAVE A MESSAGE</span>
+                <h2>We Love To Hear From You</h2>
+                <input type="text" placeholder="Your Name" />
+                <input type="text" placeholder="Email" />
+                <input type="text" placeholder="Subject" />
+                <textarea
+                    name=""
+                    id=""
+                    rows="10"
+                    placeholder="Your Message"
+                ></textarea>
+                <button class="normal">Submit</button>
+            </form>
+
+            <div class="people">
+                <div>
+                    <img src="img/people/1.png" alt="" />
+                    <p>
+                        <span>John Doe</span> Senior Marketing Manager <br />
+                        Phone: + 000 123 000 77 88 <br />Email:
+                        contact@example.com
+                    </p>
+                </div>
+                <div>
+                    <img src="img/people/2.png" alt="" />
+                    <p>
+                        <span>William Smith</span> Senior Marketing Manager
+                        <br />
+                        Phone: + 000 123 000 77 88 <br />Email:
+                        contact@example.com
+                    </p>
+                </div>
+                <div>
+                    <img src="img/people/3.png" alt="" />
+                    <p>
+                        <span>Emma Stone</span> Senior Marketing Manager <br />
+                        Phone: + 000 123 000 77 88 <br />Email:
+                        contact@example.com
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter" class="section-p1 section-m1">
+            <div class="newstext">
+                <h4>Sign up for the news letter</h4>
+                <p>
+                    Get Email updates for our latest shop and
+                    <span>special offers</span>
+                </p>
+            </div>
+            <div class="form">
+                <input type="text" placeholder="Your Email Address" />
+                <button class="normal">Sign Up</button>
+            </div>
+        </section>
+
+        <footer class="section-p1 container">
             <div class="col">
                 <img class="logo" src="img/logo.png" alt="" />
                 <h4>Contact</h4>
@@ -170,7 +205,6 @@
                 <p>2021, Tech2 etc - HTML CSS ECOMMERCE TEMPLATE</p>
             </div>
         </footer>
-
-        <script src="script.js"></script>
+        <script type="module" src="navbar.js"></script>
     </body>
 </html>
