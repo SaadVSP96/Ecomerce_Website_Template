@@ -1,6 +1,3 @@
-// Importing add to cart function from addToCart
-import { addToCart } from "./addToCart.js";
-
 export function productPopulate(someProdArray) {
     const pro_container = document.querySelector("#product1 .pro-container");
     pro_container.innerHTML = "";

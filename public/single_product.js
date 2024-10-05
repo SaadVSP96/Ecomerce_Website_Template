@@ -7,8 +7,7 @@ import { addToCart } from "./addToCart.js";
 
 // the url needs to be accessed since it will allow us to read the query parameter
 const currentURLhref = window.location.href;
-// Initialize navbar functionality
-navBar();
+
 // define product data before the async call
 let productData;
 // now call the Immediately Invoked Function Expression (IIFE)
@@ -73,3 +72,6 @@ function singleProductPopulate() {
         mainImg.src = smallImg[3].src;
     };
 }
+
+// Initialize navbar functionality
+navBar();

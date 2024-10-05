@@ -1,4 +1,6 @@
+// importing functionality of navbar
 import { navBar } from "./navbar.js";
+// importing product rendering functionality
 import { productPopulate } from "./productPopulate.js";
 
 const featuredFilterationPlant = async () => {
@@ -7,7 +9,7 @@ const featuredFilterationPlant = async () => {
         const {
             data: { products: productData },
         } = await axios.get("/api/v1/products");
-        console.log(productData);
+        // console.log(productData);
         let i = 0;
         while (i < productData.length) {
             if (productData[i].categories.includes("featured")) {
